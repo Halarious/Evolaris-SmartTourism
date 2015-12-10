@@ -2,4 +2,7 @@
     <string name="app_name">Evolaris - Smart Tourism</string>
     <string name="hello_round">Hello Round World!</string>
     <string name="hello_square">Hello Square World!</string>
+
+    <string name="custom_card">First layout!</string>
+    <string name="description">Second layout!</string>
 </resources>

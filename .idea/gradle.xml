@@ -10,8 +10,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/algorithm" />
+            <option value="$PROJECT_DIR$/c_location" />
+            <option value="$PROJECT_DIR$/c_weather" />
+            <option value="$PROJECT_DIR$/db" />
             <option value="$PROJECT_DIR$/mobile" />
+            <option value="$PROJECT_DIR$/tourismunit" />
             <option value="$PROJECT_DIR$/wear" />
+            <option value="$PROJECT_DIR$/ws" />
           </set>
         </option>
       </GradleProjectSettings>

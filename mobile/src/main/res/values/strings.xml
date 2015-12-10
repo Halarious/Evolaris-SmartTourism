@@ -1,3 +1,9 @@
 <resources>
+    <string name="gcm_sender_id"></string>
+
     <string name="app_name">Evolaris - Smart Tourism</string>
+    <string name="eventTitle">TestEvent</string>
+    <string name="eventText">Hey, this is sample text. Lets see how far we can drive it until it becomes to long to display on a shitty smartphone which runs shitty Android technology written by incompetent people</string>
+    <string name="toastLabel">Map!</string>
+    <string name="mapLabel">Map!</string>
 </resources>

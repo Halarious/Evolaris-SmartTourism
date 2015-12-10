@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.wearable.view.BoxInsetLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_box="left|bottom|right">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.wearable.view.WearableListView
+                android:id="@+id/wearable_list"
+                android:layout_height="match_parent"
+                android:layout_width="match_parent">
+            </android.support.wearable.view.WearableListView>
+
+            <!---<android.support.wearable.view.GridViewPager
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />-->
+
+        </LinearLayout>
+
+
+
+        <!--<android.support.wearable.view.DelayedConfirmationView
+            android:id="@+id/delayed_confirm"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+            android:src="@drawable/cancel_circle"
+            app:circle_border_color="@color/blue"
+            app:circle_border_width="4dp"
+            app:circle_radius="16dp">
+        </android.support.wearable.view.DelayedConfirmationView>
+
+        <android.support.wearable.view.DismissOverlayView
+            android:id="@+id/dismiss_overlay"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>-->
+
+    </FrameLayout>
+
+
+</android.support.wearable.view.BoxInsetLayout>

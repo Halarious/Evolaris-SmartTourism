@@ -1,1 +1,1 @@
-include ':mobile', ':wear'
+include ':mobile', ':wear', ':db', ':ws', ':algorithm', ':tourismunit', ':c_weather', ':c_location'
