@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Evolaris-SmartTourism-dev.iml" filepath="$PROJECT_DIR$/Evolaris-SmartTourism-dev.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Evolaris-SmartTourism.iml" filepath="$PROJECT_DIR$/Evolaris-SmartTourism.iml" />
       <module fileurl="file://$PROJECT_DIR$/algorithm/algorithm.iml" filepath="$PROJECT_DIR$/algorithm/algorithm.iml" />
       <module fileurl="file://$PROJECT_DIR$/c_location/c_location.iml" filepath="$PROJECT_DIR$/c_location/c_location.iml" />
       <module fileurl="file://$PROJECT_DIR$/c_weather/c_weather.iml" filepath="$PROJECT_DIR$/c_weather/c_weather.iml" />
