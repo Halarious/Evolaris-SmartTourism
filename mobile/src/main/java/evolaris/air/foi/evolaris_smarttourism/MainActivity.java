@@ -3,16 +3,19 @@ package evolaris.air.foi.evolaris_smarttourism;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.NotificationCompat;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.Node;
@@ -30,6 +33,9 @@ public class       MainActivity
     int testNotificationID = 001;
     private static final String START_ACTIVITY = "/start_activity";
     private GoogleApiClient mGoogleApiClient;
+    private Location mLastLocation;
+    private String mLatitudeText;
+    private String mLongitudeText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,17 +86,36 @@ public class       MainActivity
     }
 
     @Override
+    protected void onStop()
+    {
+
+        super.onStop();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
 
-        mGoogleApiClient.disconnect();
+        if( mGoogleApiClient != null && mGoogleApiClient.isConnected() ) {
+            mGoogleApiClient.disconnect();
+        }
     }
 
     @Override
     public void onConnected(Bundle bundle)
     {
         sendMessage(START_ACTIVITY, "");
+
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        if (mLastLocation != null) {
+            String Accuracy = (String.valueOf(mLastLocation.getAccuracy()));
+            String Time = (String.valueOf(mLastLocation.getTime()));
+            mLatitudeText = (String.valueOf(mLastLocation.getLatitude()));
+            mLongitudeText = (String.valueOf(mLastLocation.getLongitude()));
+        }
     }
+
 
     @Override
     public void onConnectionSuspended(int i)
@@ -110,13 +135,18 @@ public class       MainActivity
     private void initializeGoogleApiClient()
     {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                //.addApi(PLACES_API_GOES_HERE)
+                //.addApi(Places.GEO_DATA_API)
+                //.addApi(Places.PLACE_DETECTION_API)
+                .addApi(LocationServices.API)
                 //.addScope(I_DO_NOT_EVEN_KNOW)
                 .addApiIfAvailable(Wearable.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-        mGoogleApiClient.connect();
+        if(mGoogleApiClient != null)
+        {
+            mGoogleApiClient.connect();
+        }
     }
 
     private void sendMessage( final String path, final String text ) {
