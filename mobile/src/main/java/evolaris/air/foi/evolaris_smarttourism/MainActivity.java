@@ -15,7 +15,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.Node;
@@ -36,6 +39,7 @@ public class       MainActivity
     private Location mLastLocation;
     private String mLatitudeText;
     private String mLongitudeText;
+    private Place myPlace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,20 @@ public class       MainActivity
         setContentView(R.layout.activity_main);
 
         initializeGoogleApiClient();
+
+        Places.GeoDataApi.getPlaceById(mGoogleApiClient, "ChIJlR89EtaqaEcR75ls5fh12cs")
+                .setResultCallback(new ResultCallback<PlaceBuffer>() {
+                    @Override
+                    public void onResult(PlaceBuffer places) {
+                        if (places.getStatus().isSuccess() && places.getCount() > 0) {
+                            myPlace = places.get(0);
+                            Log.i("", "Place found: " + myPlace.getName());
+                        } else {
+                            Log.e("", "Place not found");
+                        }
+                        places.release();
+                    }
+                });
         /*
         Intent viewIntent = new Intent(this, ViewEventActivity.class);
         //viewIntent.putExtra(EXTRA_EVENT_ID, eventID);
@@ -138,7 +156,6 @@ public class       MainActivity
                 .addApi(Places.GEO_DATA_API)
                 .addApi(Places.PLACE_DETECTION_API)
                 .addApi(LocationServices.API)
-                //.addScope(I_DO_NOT_EVEN_KNOW)
                 .addApiIfAvailable(Wearable.API)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
