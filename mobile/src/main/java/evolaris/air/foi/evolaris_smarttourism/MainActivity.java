@@ -135,8 +135,8 @@ public class       MainActivity
     private void initializeGoogleApiClient()
     {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                //.addApi(Places.GEO_DATA_API)
-                //.addApi(Places.PLACE_DETECTION_API)
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
                 .addApi(LocationServices.API)
                 //.addScope(I_DO_NOT_EVEN_KNOW)
                 .addApiIfAvailable(Wearable.API)
