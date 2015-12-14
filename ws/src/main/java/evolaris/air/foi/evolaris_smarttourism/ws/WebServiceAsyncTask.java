@@ -114,8 +114,14 @@ public class WebServiceAsyncTask
             }
             catch(JSONException exception)
             {
-
+                exception.printStackTrace();
+                Output = "Failed. Unknown error";
             }
+        }
+
+        if(asyncTaskInnerResult.webServiceHandler != null)
+        {
+            asyncTaskInnerResult.webServiceHandler.handleResult(Output, ok, timestamp);
         }
     }
 }

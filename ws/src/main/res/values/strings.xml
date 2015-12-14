@@ -1,5 +1,6 @@
 <resources>
     <string name="google_API_Key">AIzaSyAPGo4La9l47-J2kc180bpAGevLu7d-4Sk</string>
+    <string name="open_weather_API_Key">c89838280c7d49c8b5841836a8cb14b0</string>
 
     <string name="app_name">ws</string>
 </resources>
