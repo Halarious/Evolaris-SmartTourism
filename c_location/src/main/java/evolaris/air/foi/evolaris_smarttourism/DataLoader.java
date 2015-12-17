@@ -1,46 +1,16 @@
 package evolaris.air.foi.evolaris_smarttourism;
 
-import evolaris.air.foi.evolaris_smarttourism.ws.WebServiceAsyncTask;
-import evolaris.air.foi.evolaris_smarttourism.ws.WebServiceParams;
-import evolaris.air.foi.evolaris_smarttourism.ws.WebServiceResultHandler;
+import retrofit.RestAdapter;
 
 public class DataLoader
 {
-    WebServiceResultHandler resultHandler= new WebServiceResultHandler()
+    private String APIUrl = "https://maps.googleapis.com";
+    public DataLoader()
     {
-        @Override
-        public void handleResult(String result, boolean ok, long timestamp)
-        {
-            if(ok)
-            {
-                try
-                {
-                    JsonAdapter.getLocations(result);
-                    for(;;)
-                    {
+        RestAdapter restAdapter = new RestAdapter.Builder().setLogLevel(RestAdapter.LogLevel.FULL)
+                                        .setEndpoint(APIUrl).build();
 
-                    }
-                }
-                catch (Exception exception)
-                {
-                    
-                }
-            }
-        }
-    };
-
-    public void LoadData()
-    {
-        WebServiceAsyncTask asyncTask = new WebServiceAsyncTask();
-        WebServiceParams webServiceParams = new WebServiceParams();
-
-        webServiceParams.resultHandler = resultHandler;
-        webServiceParams.targetAttribute = "results";
-        webServiceParams.searchType = "";
-        webServiceParams.outputFormat = "";
-        webServiceParams.longitude = "";
-        webServiceParams.latitude = "";
-        webServiceParams.radius = "";
-        webServiceParams.type = "";
+        WebServiceCall webServiceCall = restAdapter.create(WebServiceCall.class);
+        //webServiceCall.GetWeather();
     }
 }

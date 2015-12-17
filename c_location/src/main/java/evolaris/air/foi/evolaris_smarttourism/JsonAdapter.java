@@ -2,6 +2,7 @@ package evolaris.air.foi.evolaris_smarttourism;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -19,6 +20,7 @@ public class JsonAdapter
 
             for(int i = 0; i<size; i++)
             {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
             }
         }
