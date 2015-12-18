@@ -57,9 +57,9 @@ public class       MainActivity
                     }
                 });
 
-        DataLoader dataLoader = new DataLoader();
-        dataLoader.getWeather((TextView)findViewById(R.id.MyTextView));
-        //dataLoader.GetMuseums((TextView)findViewById(R.id.MyTextView));
+        evolaris.air.foi.evolaris_smarttourism.c_location.DataLoader dataLoader = new evolaris.air.foi.evolaris_smarttourism.c_location.DataLoader();
+        //dataLoader.getWeather((TextView)findViewById(R.id.MyTextView));
+        dataLoader.getMuseums((TextView) findViewById(R.id.MyTextView));
 
         /*
         Intent viewIntent = new Intent(this, ViewEventActivity.class);

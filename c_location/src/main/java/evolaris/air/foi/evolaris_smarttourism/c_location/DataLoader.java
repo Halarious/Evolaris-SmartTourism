@@ -33,7 +33,7 @@ public class DataLoader
             Location L = locationList.results.get(0);
             String pID = L.place_id;
 
-            View.setText(pID);
+            View.setText("Success!" + "\n" + locationList.status + "\n" + pID);
         }
 
         @Override
@@ -43,10 +43,10 @@ public class DataLoader
         }
     };
 
-    public void GetMuseums(TextView View)
+    public void getMuseums(TextView View)
     {
         this.View = View;
-        webServiceCall.getLocations("radarsearch", "json", "46.3053777", "16.3328265", 5000, "museum",
+        webServiceCall.getLocations("radarsearch", "json", "46.3053777"+","+"16.3328265", 5000, "museum",
                                     APIKey, BaseCallback);
     }
 }
