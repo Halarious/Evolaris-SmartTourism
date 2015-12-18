@@ -9,7 +9,7 @@ public interface WebServiceCall
 {
 
     @FormUrlEncoded
-    @GET("&lat={latitude}&lon={longitude}&appid={key}")
-    void GetWeather(@Path("latitude") int latitude, @Path("longitude") int longitude,
+    @GET("/data/2.5/weather?&lat={latitude}&lon={longitude}&appid={key}")
+    void getWeather(@Path("latitude") String latitude, @Path("longitude") String longitude,
                     @Path("key") String apiKey, Callback<Weather> response);
 }

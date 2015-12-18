@@ -1,17 +1,10 @@
 package evolaris.air.foi.evolaris_smarttourism;
 
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.location.Location;
-import android.net.Uri;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,7 +17,6 @@ import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
-import com.google.android.gms.wearable.WearableListenerService;
 
 public class       MainActivity
         extends     AppCompatActivity
@@ -55,12 +47,18 @@ public class       MainActivity
                         if (places.getStatus().isSuccess() && places.getCount() > 0) {
                             myPlace = places.get(0);
                             Log.i("", "Place found: " + myPlace.getName());
-                        } else {
+                        }
+                        else {
                             Log.e("", "Place not found");
                         }
                         places.release();
                     }
                 });
+
+        _DataLoader dataLoader = new _DataLoader();
+        dataLoader.getWeather((TextView)findViewById(R.id.MyTextView));
+        //dataLoader.GetMuseums((TextView)findViewById(R.id.MyTextView));
+
         /*
         Intent viewIntent = new Intent(this, ViewEventActivity.class);
         //viewIntent.putExtra(EXTRA_EVENT_ID, eventID);
