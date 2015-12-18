@@ -4,12 +4,12 @@ import retrofit.Callback;
 import retrofit.http.FormUrlEncoded;
 import retrofit.http.GET;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 public interface WebServiceCall
 {
 
-    @FormUrlEncoded
-    @GET("/data/2.5/weather?&lat={latitude}&lon={longitude}&appid={key}")
-    void getWeather(@Path("latitude") String latitude, @Path("longitude") String longitude,
-                    @Path("key") String apiKey, Callback<Weather> response);
+    @GET("/data/2.5/weather")
+    void getWeather(@Query("lat") String latitude, @Query("lon") String longitude,
+                    @Query("appid") String apiKey, Callback<Weather> response);
 }

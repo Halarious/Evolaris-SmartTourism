@@ -14,7 +14,7 @@ public class Weather
 
     @SerializedName("weather")
     @Expose
-    public List<Weather> weather = new ArrayList<Weather>();
+    public List<Weather_> weather = new ArrayList<Weather_>();
 
     @SerializedName("base")
     @Expose
@@ -27,6 +27,10 @@ public class Weather
     @SerializedName("wind")
     @Expose
     public Wind wind;
+
+    @SerializedName("rain")
+    @Expose
+    public Rain rain;
 
     @SerializedName("clouds")
     @Expose

@@ -30,13 +30,15 @@ public class DataLoader
         @Override
         public void success(Weather weather, Response response)
         {
-            View.setText("Success!");
+            View.setText("Success!" + "\n" + weather.cod);
         }
 
         @Override
         public void failure(RetrofitError error)
         {
             View.setText("Failed!");
+
+            error.printStackTrace();
         }
     };
 
