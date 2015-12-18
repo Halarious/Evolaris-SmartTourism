@@ -18,6 +18,8 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import evolaris.air.foi.evolaris_smarttourism.c_weather.DataLoader;
+
 public class       MainActivity
         extends     AppCompatActivity
 
@@ -55,7 +57,7 @@ public class       MainActivity
                     }
                 });
 
-        _DataLoader dataLoader = new _DataLoader();
+        DataLoader dataLoader = new DataLoader();
         dataLoader.getWeather((TextView)findViewById(R.id.MyTextView));
         //dataLoader.GetMuseums((TextView)findViewById(R.id.MyTextView));
 

@@ -1,4 +1,4 @@
-package evolaris.air.foi.evolaris_smarttourism;
+package evolaris.air.foi.evolaris_smarttourism.c_weather;
 
 import android.widget.TextView;
 
@@ -7,7 +7,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class _DataLoader
+public class DataLoader
 {
     private static String APIKey = "2de143494c0b295cca9337e1e96b00e0";
     private static String APIUrl = "http://api.openweathermap.org";
@@ -15,12 +15,12 @@ public class _DataLoader
     private TextView View;
     private WebServiceCall webServiceCall;
 
-    public _DataLoader()
+    public DataLoader()
     {
         RestAdapter restAdapter = new RestAdapter.Builder().setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(APIUrl).build();
 
-        WebServiceCall webServiceCall = restAdapter.create(WebServiceCall.class);
+        webServiceCall = restAdapter.create(WebServiceCall.class);
 
     }
 

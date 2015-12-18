@@ -1,14 +1,14 @@
-package evolaris.air.foi.evolaris_smarttourism;
+package evolaris.air.foi.evolaris_smarttourism.c_location;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Coord
+public class LocationCoords
 {
-    @SerializedName("lon")
-    @Expose
-    public Double lon;
     @SerializedName("lat")
     @Expose
     public Double lat;
+    @SerializedName("lng")
+    @Expose
+    public Double lng;
 }

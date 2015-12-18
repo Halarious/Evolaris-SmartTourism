@@ -1,6 +1,5 @@
-package evolaris.air.foi.evolaris_smarttourism;
+package evolaris.air.foi.evolaris_smarttourism.c_location;
 
-import android.view.View;
 import android.widget.TextView;
 
 import retrofit.Callback;

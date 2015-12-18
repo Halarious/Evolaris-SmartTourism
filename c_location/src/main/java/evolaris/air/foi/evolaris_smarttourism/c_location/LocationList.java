@@ -1,6 +1,4 @@
-package evolaris.air.foi.evolaris_smarttourism;
-
-import android.location.*;
+package evolaris.air.foi.evolaris_smarttourism.c_location;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -20,7 +18,7 @@ public class LocationList
 
     @SerializedName("results")
     @Expose
-    public List<Location> results = new ArrayList<Location>();
+    public List<evolaris.air.foi.evolaris_smarttourism.c_location.Location> results = new ArrayList<evolaris.air.foi.evolaris_smarttourism.c_location.Location>();
 
     @SerializedName("status")
     @Expose
