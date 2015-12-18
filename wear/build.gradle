@@ -6,7 +6,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "evolaris.air.foi.evolaris_smarttourism"
+        applicationId "hr.evolaris.air.foi.evolaris_smarttourism"
         minSdkVersion 20
         targetSdkVersion 23
         versionCode 1

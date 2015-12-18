@@ -1,4 +1,4 @@
-package evolaris.air.foi.evolaris_smarttourism;
+package hr.evolaris.air.foi.evolaris_smarttourism;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package evolaris.air.foi.evolaris_smarttourism.db;
+package hr.evolaris.air.foi.evolaris_smarttourism.db;
 
 import org.junit.Test;
 
