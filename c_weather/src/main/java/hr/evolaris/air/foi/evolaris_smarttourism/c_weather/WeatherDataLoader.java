@@ -7,7 +7,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class DataLoader
+public class WeatherDataLoader
 {
     private static String APIKey = "2de143494c0b295cca9337e1e96b00e0";
     private static String APIUrl = "http://api.openweathermap.org";
@@ -15,7 +15,7 @@ public class DataLoader
     private TextView View;
     private WebServiceCall webServiceCall;
 
-    public DataLoader()
+    public WeatherDataLoader()
     {
         RestAdapter restAdapter = new RestAdapter.Builder().setLogLevel(RestAdapter.LogLevel.FULL)
                 .setEndpoint(APIUrl).build();

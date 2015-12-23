@@ -22,8 +22,8 @@ public class MainActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.round_activity_main);
-        /*
+        /*setContentView(R.layout.round_activity_main);
+
         mDelayedView =
                 (DelayedConfirmationView) findViewById(R.id.delayed_confirm);
         mDelayedView.setListener(this);

@@ -24,6 +24,7 @@ dependencies {
     wearApp project(':wear')
     compile project(":c_location")
     compile project(":c_weather")
+    compile project(":db")
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.google.android.support:wearable:+'

@@ -4,13 +4,14 @@ import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.wearable.MessageApi;
@@ -18,7 +19,10 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
-public class       MainActivity
+import hr.evolaris.air.foi.evolaris_smarttourism.c_location.LocationDataLoader;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
+
+public class        MainActivity
         extends     AppCompatActivity
 
         implements  GoogleApiClient.OnConnectionFailedListener,
@@ -26,12 +30,10 @@ public class       MainActivity
 {
 
     int testNotificationID = 001;
-    private static final String START_ACTIVITY = "/start_activity";
     private GoogleApiClient mGoogleApiClient;
     private Location mLastLocation;
     private String mLatitudeText;
     private String mLongitudeText;
-    private Place myPlace;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,24 +42,23 @@ public class       MainActivity
 
         initializeGoogleApiClient();
 
-        Places.GeoDataApi.getPlaceById(mGoogleApiClient, "ChIJlR89EtaqaEcR75ls5fh12cs")
-                .setResultCallback(new ResultCallback<PlaceBuffer>() {
-                    @Override
-                    public void onResult(PlaceBuffer places) {
-                        if (places.getStatus().isSuccess() && places.getCount() > 0) {
-                            myPlace = places.get(0);
-                            Log.i("", "Place found: " + myPlace.getName());
-                        }
-                        else {
-                            Log.e("", "Place not found");
-                        }
-                        places.release();
-                    }
-                });
+        String googleAPIKey = getResources().getString(R.string.google_API_Key);
+        String placeID = "ChIJlR89EtaqaEcR75ls5fh12cs";
+        PlacesAPI_getName(placeID);
 
-        hr.evolaris.air.foi.evolaris_smarttourism.c_location.DataLoader dataLoader = new hr.evolaris.air.foi.evolaris_smarttourism.c_location.DataLoader();
+        final LocationDataLoader dataLoader = new LocationDataLoader();
+
+        Button clicky = (Button)findViewById(R.id.clicky);
+        clicky.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                sendMessage(MessageActions.START_ACTIVITY.text, "");
+                dataLoader.getMuseums((TextView) findViewById(R.id.MyTextView));
+            }
+        });
+
         //dataLoader.getWeather((TextView)findViewById(R.id.MyTextView));
-        dataLoader.getMuseums((TextView) findViewById(R.id.MyTextView));
 
         /*
         Intent viewIntent = new Intent(this, ViewEventActivity.class);
@@ -120,10 +121,8 @@ public class       MainActivity
     @Override
     public void onConnected(Bundle bundle)
     {
-        sendMessage(START_ACTIVITY, "");
-
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                mGoogleApiClient);
+                         mGoogleApiClient);
         if (mLastLocation != null) {
             String Accuracy = (String.valueOf(mLastLocation.getAccuracy()));
             String Time = (String.valueOf(mLastLocation.getTime()));
@@ -144,7 +143,7 @@ public class       MainActivity
     {
         if(connectionResult.getErrorCode() == ConnectionResult.API_UNAVAILABLE)
         {
-
+            Log.i("", "API unavailable!");
         }
     }
 
@@ -164,7 +163,8 @@ public class       MainActivity
         }
     }
 
-    private void sendMessage( final String path, final String text ) {
+    private void sendMessage( final String path, final String text )
+    {
         new Thread( new Runnable() {
             @Override
             public void run() {
@@ -175,5 +175,25 @@ public class       MainActivity
                 }
             }
         }).start();
+    }
+
+    public void PlacesAPI_getName(String placeID)
+    {
+        Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeID)
+                .setResultCallback(new ResultCallback<PlaceBuffer>() {
+                    @Override
+                    public void onResult(PlaceBuffer places) {
+                        if (places.getStatus().isSuccess() && places.getCount() > 0)
+                        {
+                            Log.i("", "Place found: " + places.get(0).getName());
+                        }
+                        else
+                        {
+                            Log.e("", "Place not found");
+                        }
+                        places.release();
+                    }
+                });
+
     }
 }

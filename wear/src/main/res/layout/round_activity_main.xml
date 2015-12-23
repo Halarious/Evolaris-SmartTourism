@@ -9,22 +9,22 @@
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_box="left|bottom|right">
+        app:layout_box="all">
 
-        <LinearLayout
+        <!---<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!---<android.support.wearable.view.GridViewPager
+            <android.support.wearable.view.GridViewPager
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />-->
+                android:layout_height="match_parent" />
 
         </LinearLayout>
 
-        <!--<android.support.wearable.view.DelayedConfirmationView
+        <android.support.wearable.view.DelayedConfirmationView
             android:id="@+id/delayed_confirm"
             android:layout_width="40dp"
             android:layout_height="40dp">

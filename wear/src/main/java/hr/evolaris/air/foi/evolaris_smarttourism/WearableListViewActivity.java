@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.wearable.view.DismissOverlayView;
 import android.support.wearable.view.WearableListView;
 import android.view.GestureDetector;
+import android.view.MotionEvent;
 
 public class WearableListViewActivity
         extends Activity

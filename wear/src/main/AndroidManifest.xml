@@ -4,7 +4,6 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
-
     <uses-feature android:name="android.hardware.type.watch" />
 
     <application
@@ -23,9 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".WearableListViewActivity">
 
-        </activity>
+        <activity
+            android:name=".WearableListViewActivity"
+            android:theme="@android:style/Theme.DeviceDefault"
+            />
+
+
         <service android:name=".NotificationListenerService">
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />

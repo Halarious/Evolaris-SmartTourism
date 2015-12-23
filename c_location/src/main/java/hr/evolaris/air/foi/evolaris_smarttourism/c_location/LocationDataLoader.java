@@ -7,7 +7,7 @@ import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class DataLoader
+public class LocationDataLoader
 {
     private String APIKey = "AIzaSyAPGo4La9l47-J2kc180bpAGevLu7d-4Sk";
     private String APIUrl = "https://maps.googleapis.com";
@@ -15,7 +15,7 @@ public class DataLoader
     private TextView View;
     private WebServiceCall webServiceCall;
 
-    public DataLoader()
+    public LocationDataLoader()
     {
         RestAdapter restAdapter = new RestAdapter.Builder().setLogLevel(RestAdapter.LogLevel.FULL)
                                         .setEndpoint(APIUrl).build();
