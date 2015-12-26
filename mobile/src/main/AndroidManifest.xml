@@ -16,6 +16,11 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_API_Key" />
+
+        <service
+            android:name=".FetchAddressIntentService"
+            android:exported="false"/>
+
         <activity android:name=".MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +31,7 @@
         <activity android:name=".ViewEventActivity">
 
         </activity>
+
     </application>
 
 </manifest>

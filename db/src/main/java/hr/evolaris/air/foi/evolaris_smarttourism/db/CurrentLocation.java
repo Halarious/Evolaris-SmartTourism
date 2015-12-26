@@ -1,5 +1,8 @@
 package hr.evolaris.air.foi.evolaris_smarttourism.db;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -14,7 +17,7 @@ public class CurrentLocation implements LocationListener
 {
     private static CurrentLocation instance;
     private static LocationRequest locationRequest;
-    public static String lastUpdateTime;
+        public static String lastUpdateTime;
     public static Location currentLocation;
 
     private CurrentLocation()

@@ -17,4 +17,7 @@
     <string name="GEOCODING_FORMAT">
         https://maps.googleapis.com/maps/api/geocode/json?latlng=46.3044444,16.3377778 \amp key=MY_API_KEY
     </string>
+
+    <string name="address_found">Address found</string>
+    <string name="address_not_found">Address not found</string>
 </resources>

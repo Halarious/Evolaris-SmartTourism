@@ -1,6 +1,11 @@
 package hr.evolaris.air.foi.evolaris_smarttourism;
 
+import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
+import android.os.Handler;
+import android.os.ResultReceiver;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -26,8 +31,11 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import hr.evolaris.air.foi.evolaris_smarttourism.c_location.LocationDataLoader;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.CurrentLocation;
@@ -39,8 +47,10 @@ public class        MainActivity
         implements  GoogleApiClient.OnConnectionFailedListener,
                     GoogleApiClient.ConnectionCallbacks
 {
-
     private GoogleApiClient mGoogleApiClient;
+    private Handler handler = new Handler();
+    private AddressResultReceiver addressResultReceiver = new AddressResultReceiver(handler);
+    private String addressOutput;
 
     private DrawerLayout mDrawer;
     private Toolbar mDrawerToolbar;
@@ -202,6 +212,7 @@ public class        MainActivity
         }
 
         CurrentLocation.getInstance().startLocationUpdated(mGoogleApiClient);
+        startGeocodeIntentService();
     }
 
 
@@ -250,6 +261,19 @@ public class        MainActivity
         }).start();
     }
 
+    private void startGeocodeIntentService()
+    {
+        Location location = CurrentLocation.getInstance().currentLocation;
+        if(location != null)
+        {
+            Intent intent = new Intent(this, FetchAddressIntentService.class);
+            intent.putExtra(Constants.RECEIVER, addressResultReceiver);
+            intent.putExtra(Constants.LOCATION_DATA_EXTRA, location);
+            startService(intent);
+        }
+    }
+
+
     public void PlacesAPI_getName(String placeID)
     {
         Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeID)
@@ -268,4 +292,23 @@ public class        MainActivity
 
     }
 
+
+    class AddressResultReceiver extends ResultReceiver
+    {
+        public AddressResultReceiver(Handler handler)
+        {
+            super(handler);
+        }
+
+        @Override
+        protected void onReceiveResult(int resultCode, Bundle resultData)
+        {
+            if (resultCode == Constants.SUCCESS_RESULT)
+            {
+                addressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
+                ((TextView)findViewById(R.id.MyTextView2)).setText(addressOutput);
+            }
+
+        }
+    }
 }
