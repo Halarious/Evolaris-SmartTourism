@@ -1,9 +1,14 @@
 package hr.evolaris.air.foi.evolaris_smarttourism;
 
 import android.location.Location;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,6 +16,8 @@ import android.widget.TextView;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
@@ -19,7 +26,11 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 import hr.evolaris.air.foi.evolaris_smarttourism.c_location.LocationDataLoader;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.CurrentLocation;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
 
 public class        MainActivity
@@ -29,11 +40,18 @@ public class        MainActivity
                     GoogleApiClient.ConnectionCallbacks
 {
 
-    int testNotificationID = 001;
     private GoogleApiClient mGoogleApiClient;
-    private Location mLastLocation;
-    private String mLatitudeText;
-    private String mLongitudeText;
+
+    private DrawerLayout mDrawer;
+    private Toolbar mDrawerToolbar;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        mDrawerToggle.syncState();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +60,7 @@ public class        MainActivity
 
         initializeGoogleApiClient();
 
-        String googleAPIKey = getResources().getString(R.string.google_API_Key);
+        //String googleAPIKey = getResources().getString(R.string.google_API_Key);
         String placeID = "ChIJlR89EtaqaEcR75ls5fh12cs";
         PlacesAPI_getName(placeID);
 
@@ -57,6 +75,38 @@ public class        MainActivity
                 dataLoader.getMuseums((TextView) findViewById(R.id.MyTextView));
             }
         });
+
+        Button clicky2 = (Button)findViewById(R.id.clicky2);
+        clicky2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                ((TextView)findViewById(R.id.MyTextView2)).setText(
+                        CurrentLocation.lastUpdateTime);
+            }
+        });
+
+        mDrawerToolbar = (Toolbar) findViewById(R.id.drawer_toolbar);
+        setSupportActionBar(mDrawerToolbar);
+
+        mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+
+        mDrawerToggle =
+                new ActionBarDrawerToggle(this, mDrawer, mDrawerToolbar, R.string.drawer_open , R.string.drawer_close)
+                {
+
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        super.onDrawerOpened(drawerView);
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        super.onDrawerClosed(drawerView);
+                    }
+                };
+        mDrawer.setDrawerListener(mDrawerToggle);
+
 
         //dataLoader.getWeather((TextView)findViewById(R.id.MyTextView));
 
@@ -119,16 +169,39 @@ public class        MainActivity
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int itemID = item.getItemId();
+
+        switch(itemID)
+        {
+            default:
+                break;
+        }
+
+        return true;
+    }
+
+    @Override
     public void onConnected(Bundle bundle)
     {
-        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
-                         mGoogleApiClient);
-        if (mLastLocation != null) {
-            String Accuracy = (String.valueOf(mLastLocation.getAccuracy()));
-            String Time = (String.valueOf(mLastLocation.getTime()));
-            mLatitudeText = (String.valueOf(mLastLocation.getLatitude()));
-            mLongitudeText = (String.valueOf(mLastLocation.getLongitude()));
+        Location LastLocation;
+        LastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+        if (LastLocation != null)
+        {
+            CurrentLocation.getInstance().currentLocation = LastLocation;
+            CurrentLocation.getInstance().lastUpdateTime = DateFormat.getTimeInstance().format(new Date());;
         }
+
+        CurrentLocation.getInstance().startLocationUpdated(mGoogleApiClient);
     }
 
 
@@ -183,12 +256,10 @@ public class        MainActivity
                 .setResultCallback(new ResultCallback<PlaceBuffer>() {
                     @Override
                     public void onResult(PlaceBuffer places) {
-                        if (places.getStatus().isSuccess() && places.getCount() > 0)
-                        {
+                        if (places.getStatus().isSuccess() && places.getCount() > 0) {
                             Log.i("", "Place found: " + places.get(0).getName());
                         }
-                        else
-                        {
+                        else {
                             Log.e("", "Place not found");
                         }
                         places.release();
@@ -196,4 +267,5 @@ public class        MainActivity
                 });
 
     }
+
 }

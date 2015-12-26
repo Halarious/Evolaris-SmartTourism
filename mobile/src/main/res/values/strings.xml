@@ -9,4 +9,12 @@
     <string name="toastLabel">Map!</string>
     <string name="mapLabel">Map!</string>
     <string name="my_button">Click me coward!</string>
+    <string name="my_button2">You\'re only gonna kill a man!</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="GEOCODING_FORMAT">
+        https://maps.googleapis.com/maps/api/geocode/json?latlng=46.3044444,16.3377778 \amp key=MY_API_KEY
+    </string>
 </resources>
