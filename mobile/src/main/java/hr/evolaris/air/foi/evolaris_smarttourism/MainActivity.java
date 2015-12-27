@@ -12,10 +12,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -47,9 +50,10 @@ public class        MainActivity
         implements  GoogleApiClient.OnConnectionFailedListener,
                     GoogleApiClient.ConnectionCallbacks
 {
+    private PopupWindow popupWindow;
+
     private GoogleApiClient mGoogleApiClient;
-    private Handler handler = new Handler();
-    private AddressResultReceiver addressResultReceiver = new AddressResultReceiver(handler);
+    private AddressResultReceiver addressResultReceiver;
     private String addressOutput;
 
     private DrawerLayout mDrawer;
@@ -57,24 +61,24 @@ public class        MainActivity
     private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        mDrawerToggle.syncState();
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        final LocationDataLoader dataLoader = new LocationDataLoader();
+
+        addressResultReceiver = new AddressResultReceiver(new Handler());
+
+        popupWindow = new PopupWindow(this);
+        final View popupView = this.getLayoutInflater().inflate(R.layout.popup_window, null);
+        popupWindow.setContentView(popupView.findViewById(R.id.popup_view));
+        popupWindow.setFocusable(true);
+        popupWindow.setAnimationStyle(R.style.AnimationPopup);
+
         initializeGoogleApiClient();
 
-        //String googleAPIKey = getResources().getString(R.string.google_API_Key);
         String placeID = "ChIJlR89EtaqaEcR75ls5fh12cs";
         PlacesAPI_getName(placeID);
-
-        final LocationDataLoader dataLoader = new LocationDataLoader();
 
         Button clicky = (Button)findViewById(R.id.clicky);
         clicky.setOnClickListener(new View.OnClickListener() {
@@ -91,8 +95,18 @@ public class        MainActivity
             @Override
             public void onClick(View v)
             {
-                ((TextView)findViewById(R.id.MyTextView2)).setText(
+                ((TextView) findViewById(R.id.MyTextView2)).setText(
                         CurrentLocation.lastUpdateTime);
+
+                if(!popupWindow.isShowing())
+                {
+                popupWindow.showAtLocation(popupView.findViewById(R.id.popup_view), Gravity.BOTTOM, 10, 10);
+                popupWindow.update(50, 50, 300, 80);
+                }
+                else
+                {
+                    popupWindow.dismiss();
+                }
             }
         });
 
@@ -116,7 +130,6 @@ public class        MainActivity
                     }
                 };
         mDrawer.setDrawerListener(mDrawerToggle);
-
 
         //dataLoader.getWeather((TextView)findViewById(R.id.MyTextView));
 
@@ -160,6 +173,13 @@ public class        MainActivity
                 NotificationManagerCompat.from(this);
 
         notificationManager.notify(testNotificationID, notificationBuilder.build());*/
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+
+        mDrawerToggle.syncState();
     }
 
     @Override
@@ -231,6 +251,7 @@ public class        MainActivity
         }
     }
 
+
     private void initializeGoogleApiClient()
     {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -253,7 +274,8 @@ public class        MainActivity
             @Override
             public void run() {
                 NodeApi.GetConnectedNodesResult nodes = Wearable.NodeApi.getConnectedNodes( mGoogleApiClient ).await();
-                for(Node node : nodes.getNodes()) {
+                for(Node node : nodes.getNodes())
+                {
                     MessageApi.SendMessageResult result = Wearable.MessageApi.sendMessage(
                             mGoogleApiClient, node.getId(), path, text.getBytes() ).await();
                 }
@@ -280,10 +302,13 @@ public class        MainActivity
                 .setResultCallback(new ResultCallback<PlaceBuffer>() {
                     @Override
                     public void onResult(PlaceBuffer places) {
-                        if (places.getStatus().isSuccess() && places.getCount() > 0) {
+
+                        if (places.getStatus().isSuccess() && places.getCount() > 0)
+                        {
                             Log.i("", "Place found: " + places.get(0).getName());
                         }
-                        else {
+                        else
+                        {
                             Log.e("", "Place not found");
                         }
                         places.release();
