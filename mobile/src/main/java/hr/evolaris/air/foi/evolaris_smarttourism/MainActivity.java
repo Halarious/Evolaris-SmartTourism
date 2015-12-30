@@ -1,9 +1,8 @@
 package hr.evolaris.air.foi.evolaris_smarttourism;
 
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.v4.widget.DrawerLayout;
@@ -17,15 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
@@ -34,11 +30,8 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import hr.evolaris.air.foi.evolaris_smarttourism.c_location.LocationDataLoader;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.CurrentLocation;
@@ -53,8 +46,8 @@ public class        MainActivity
     private PopupWindow popupWindow;
 
     private GoogleApiClient mGoogleApiClient;
+    private CurrentLocation userLocationInstance;
     private AddressResultReceiver addressResultReceiver;
-    private String addressOutput;
 
     private DrawerLayout mDrawer;
     private Toolbar mDrawerToolbar;
@@ -65,8 +58,7 @@ public class        MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final LocationDataLoader dataLoader = new LocationDataLoader();
-
+        userLocationInstance = CurrentLocation.getInstance();
         addressResultReceiver = new AddressResultReceiver(new Handler());
 
         popupWindow = new PopupWindow(this);
@@ -86,7 +78,8 @@ public class        MainActivity
             public void onClick(View v)
             {
                 sendMessage(MessageActions.START_ACTIVITY.text, "");
-                dataLoader.getMuseums((TextView) findViewById(R.id.MyTextView));
+
+                new AsyncCollectInfo().execute();
             }
         });
 
@@ -96,7 +89,7 @@ public class        MainActivity
             public void onClick(View v)
             {
                 ((TextView) findViewById(R.id.MyTextView2)).setText(
-                        CurrentLocation.lastUpdateTime);
+                        userLocationInstance.lastUpdateTime);
 
                 if(!popupWindow.isShowing())
                 {
@@ -227,12 +220,12 @@ public class        MainActivity
 
         if (LastLocation != null)
         {
-            CurrentLocation.getInstance().currentLocation = LastLocation;
-            CurrentLocation.getInstance().lastUpdateTime = DateFormat.getTimeInstance().format(new Date());;
+            userLocationInstance.currentLocation = LastLocation;
+            userLocationInstance.lastUpdateTime = DateFormat.getTimeInstance().format(new Date());
         }
 
-        CurrentLocation.getInstance().startLocationUpdated(mGoogleApiClient);
-        startGeocodeIntentService();
+        userLocationInstance.startLocationUpdated(mGoogleApiClient);
+        startGeocodeIntentService(userLocationInstance.currentLocation);
     }
 
 
@@ -283,9 +276,9 @@ public class        MainActivity
         }).start();
     }
 
-    private void startGeocodeIntentService()
+    private void startGeocodeIntentService(Location passedLocation)
     {
-        Location location = CurrentLocation.getInstance().currentLocation;
+        Location location = passedLocation;
         if(location != null)
         {
             Intent intent = new Intent(this, FetchAddressIntentService.class);
@@ -320,6 +313,8 @@ public class        MainActivity
 
     class AddressResultReceiver extends ResultReceiver
     {
+        public String resultAddress;
+
         public AddressResultReceiver(Handler handler)
         {
             super(handler);
@@ -330,8 +325,13 @@ public class        MainActivity
         {
             if (resultCode == Constants.SUCCESS_RESULT)
             {
-                addressOutput = resultData.getString(Constants.RESULT_DATA_KEY);
-                ((TextView)findViewById(R.id.MyTextView2)).setText(addressOutput);
+                resultAddress = resultData.getString(Constants.RESULT_DATA_KEY);
+                ((TextView)findViewById(R.id.MyTextView2)).setText(resultAddress);
+            }
+            else
+            if (resultCode == Constants.FAILURE_RESULT)
+            {
+
             }
 
         }

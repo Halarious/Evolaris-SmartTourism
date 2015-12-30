@@ -2,6 +2,9 @@ package hr.evolaris.air.foi.evolaris_smarttourism.c_location;
 
 import android.widget.TextView;
 
+import java.util.concurrent.CountDownLatch;
+
+import hr.evolaris.air.foi.evolaris_smarttourism.db.Latch;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -12,7 +15,6 @@ public class LocationDataLoader
     private String APIKey = "AIzaSyAPGo4La9l47-J2kc180bpAGevLu7d-4Sk";
     private String APIUrl = "https://maps.googleapis.com";
 
-    private TextView View;
     private WebServiceCall webServiceCall;
 
     public LocationDataLoader()
@@ -30,23 +32,25 @@ public class LocationDataLoader
         @Override
         public void success(LocationList locationList, Response response)
         {
+            Latch.getLatch().countDownLatch.countDown();
             Location L = locationList.results.get(0);
             String pID = L.place_id;
 
-            View.setText("Success!" + "\n" + locationList.status + "\n" + pID);
         }
 
         @Override
         public void failure(RetrofitError error)
         {
-            View.setText("Failed!");
+            Latch.getLatch().countDownLatch.countDown();
         }
     };
 
-    public void getMuseums(TextView View)
+    public void getMuseums(String latitude, String longitude)
     {
-        this.View = View;
-        webServiceCall.getLocations("radarsearch", "json", "46.3053777"+","+"16.3328265", 5000, "museum",
+
+        webServiceCall.getLocations(LocationContextConstants.SEARCH_TYPE_NEARBY, LocationContextConstants.FORMAT_JSON,
+                                    latitude + "," + longitude,
+                                    5000, "museum",
                                     APIKey, BaseCallback);
     }
 }

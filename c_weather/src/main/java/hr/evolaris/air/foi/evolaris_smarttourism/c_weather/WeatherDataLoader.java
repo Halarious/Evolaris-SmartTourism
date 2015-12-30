@@ -2,6 +2,9 @@ package hr.evolaris.air.foi.evolaris_smarttourism.c_weather;
 
 import android.widget.TextView;
 
+import java.util.concurrent.CountDownLatch;
+
+import hr.evolaris.air.foi.evolaris_smarttourism.db.Latch;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -12,7 +15,6 @@ public class WeatherDataLoader
     private static String APIKey = "2de143494c0b295cca9337e1e96b00e0";
     private static String APIUrl = "http://api.openweathermap.org";
 
-    private TextView View;
     private WebServiceCall webServiceCall;
 
     public WeatherDataLoader()
@@ -21,7 +23,6 @@ public class WeatherDataLoader
                 .setEndpoint(APIUrl).build();
 
         webServiceCall = restAdapter.create(WebServiceCall.class);
-
     }
 
     private Callback<Weather> BaseCallback = new Callback<Weather>()
@@ -30,22 +31,22 @@ public class WeatherDataLoader
         @Override
         public void success(Weather weather, Response response)
         {
-            View.setText("Success!" + "\n" + weather.cod);
+            Latch.getLatch().countDownLatch.countDown();
+
         }
 
         @Override
         public void failure(RetrofitError error)
         {
-            View.setText("Failed!");
+            Latch.getLatch().countDownLatch.countDown();
 
             error.printStackTrace();
         }
     };
 
-    public void getWeather(TextView View)
+    public void getWeather(String latitude, String longitude)
     {
-        this.View = View;
-        webServiceCall.getWeather( "46.3053777", "16.3328265",
+        webServiceCall.getWeather( latitude, longitude,
                                     APIKey, BaseCallback);
     }
 }

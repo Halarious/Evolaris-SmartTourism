@@ -1,8 +1,5 @@
 package hr.evolaris.air.foi.evolaris_smarttourism.db;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
 
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -17,20 +14,18 @@ public class CurrentLocation implements LocationListener
 {
     private static CurrentLocation instance;
     private static LocationRequest locationRequest;
-        public static String lastUpdateTime;
-    public static Location currentLocation;
+    private int interval;
+    private int priority;
+
+    public String lastUpdateTime;
+    public Location currentLocation;
 
     private CurrentLocation()
     {
-        createLocationRequest();
-    }
+        interval = 10000;
+        priority = LocationRequest.PRIORITY_HIGH_ACCURACY;
 
-    private void  createLocationRequest()
-    {
-        locationRequest = new LocationRequest();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(5000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        createLocationRequest();
     }
 
     public static CurrentLocation getInstance()
@@ -40,6 +35,22 @@ public class CurrentLocation implements LocationListener
             instance = new CurrentLocation();
         }
         return instance;
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location)
+    {
+        currentLocation = location;
+        lastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+    }
+
+    private void createLocationRequest()
+    {
+        locationRequest = new LocationRequest();
+        locationRequest.setInterval(interval);
+        locationRequest.setFastestInterval(interval/3);
+        locationRequest.setPriority(priority);
     }
 
     public void startLocationUpdated(GoogleApiClient mGoogleApiClient)
@@ -52,11 +63,17 @@ public class CurrentLocation implements LocationListener
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
     }
 
-
-    @Override
-    public void onLocationChanged(Location location)
+    public void changeInterval(GoogleApiClient mGoogleApiClient, int newInterval)
     {
-        currentLocation = location;
-        lastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+        locationRequest.setInterval(newInterval);
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
+    }
+
+    public void changePriority(GoogleApiClient mGoogleApiClient, int newPriority)
+    {
+        locationRequest.setPriority(newPriority);
+        LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, locationRequest, this);
     }
 }

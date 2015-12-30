@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">c_weather</string>
+
+    <string name="api_url">http://api.openweathermap.org</string>
+    <string name="api_key">2de143494c0b295cca9337e1e96b00e0</string>
+
 </resources>
