@@ -7,6 +7,8 @@ import java.util.List;
 
 import hr.evolaris.air.foi.evolaris_smarttourism.c_location.LocationDataLoader;
 import hr.evolaris.air.foi.evolaris_smarttourism.c_location.LocationIntermediaryResult;
+import hr.evolaris.air.foi.evolaris_smarttourism.c_time.TimeIntermediaryResult;
+import hr.evolaris.air.foi.evolaris_smarttourism.c_time.TimePoint;
 import hr.evolaris.air.foi.evolaris_smarttourism.c_weather.WeatherDataLoader;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.Latches;
 
@@ -15,6 +17,8 @@ public class AsyncCollectInfo extends AsyncTask<Location, Integer, String>
     @Override
     protected String doInBackground(Location... params)
     {
+        String returnMessage;
+
         final Location userLocation = UserLocationManager.getInstance().currentLocation;
         final LocationDataLoader locationDataLoader;
         final WeatherDataLoader weatherDataLoader;
@@ -32,13 +36,18 @@ public class AsyncCollectInfo extends AsyncTask<Location, Integer, String>
         try
         {
             Latches.getLatch().countDownLatch.await();
+            TimeIntermediaryResult.timePoint = new TimePoint();
+            returnMessage = "Success!";
         }
         catch (InterruptedException e)
         {
+            returnMessage = "Interrupt exception!";
             e.printStackTrace();
         }
 
-        return null;
+        TestHandle.progressDialog.dismiss();
+
+        return returnMessage;
     }
 
     @Override

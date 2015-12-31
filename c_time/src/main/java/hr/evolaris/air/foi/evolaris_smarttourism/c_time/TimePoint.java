@@ -6,8 +6,8 @@ import java.util.TimeZone;
 
 public class TimePoint
 {
-    private static final String[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
-                                          "Saturday", "Sunday" };
+    private static final String[] days = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+                                          "Saturday" };
     private static final String[] months = {"January", "February", "March", "April", "May", "June",
                                             "July", "August", "September", "October", "November",
                                             "December"};
@@ -30,7 +30,7 @@ public class TimePoint
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
         second = calendar.get(Calendar.SECOND);
-        dayName = days[calendar.get(Calendar.DAY_OF_WEEK)];
+        dayName = days[calendar.get(Calendar.DAY_OF_WEEK) + 1];
         monthName = months[month];
 
     }

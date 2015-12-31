@@ -1,5 +1,8 @@
 package hr.evolaris.air.foi.evolaris_smarttourism;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Handler;
@@ -70,6 +73,7 @@ public class        MainActivity
         String placeID = "ChIJlR89EtaqaEcR75ls5fh12cs";
         PlacesAPI_getName(mGoogleApiClient, placeID);
 
+        final Context context = this;
         Button clicky = (Button)findViewById(R.id.clicky);
         clicky.setOnClickListener(new View.OnClickListener() {
 
@@ -79,8 +83,8 @@ public class        MainActivity
                 ((TextView) findViewById(R.id.MyTextView)).setText(
                         "");
                 sendMessage(MessageActions.START_ACTIVITY.text, "");
-                new AsyncCollectInfo().execute(userLocationInstance.currentLocation);
-
+                TestHandle.progressDialog = TestHandle.progressDialog.show(context, "", "", true);
+                new AsyncCollectInfo().execute();
             }
         });
 

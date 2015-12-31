@@ -47,7 +47,7 @@ public class UserLocationManager implements LocationListener
         currentLocation = location;
         lastUpdateTime = DateFormat.getTimeInstance().format(new Date());
 
-        new AsyncCollectInfo().execute();
+        //new AsyncCollectInfo().execute();
     }
 
     private void createLocationRequest()
