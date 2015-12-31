@@ -2,7 +2,6 @@ package hr.evolaris.air.foi.evolaris_smarttourism;
 
 import android.content.Intent;
 import android.location.Location;
-import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.v4.widget.DrawerLayout;
@@ -18,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,10 +30,13 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.Phaser;
 
-import hr.evolaris.air.foi.evolaris_smarttourism.c_location.LocationDataLoader;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.CurrentLocation;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
 
@@ -58,6 +61,8 @@ public class        MainActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initializeGoogleApiClient();
+
         userLocationInstance = CurrentLocation.getInstance();
         addressResultReceiver = new AddressResultReceiver(new Handler());
 
@@ -67,19 +72,20 @@ public class        MainActivity
         popupWindow.setFocusable(true);
         popupWindow.setAnimationStyle(R.style.AnimationPopup);
 
-        initializeGoogleApiClient();
-
         String placeID = "ChIJlR89EtaqaEcR75ls5fh12cs";
-        PlacesAPI_getName(placeID);
+        PlacesAPI_getName( mGoogleApiClient, placeID);
 
+        new AsyncCollectInfo().execute(userLocationInstance.currentLocation);
         Button clicky = (Button)findViewById(R.id.clicky);
         clicky.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v)
             {
+                ((TextView) findViewById(R.id.MyTextView)).setText(
+                        "");
                 sendMessage(MessageActions.START_ACTIVITY.text, "");
 
-                new AsyncCollectInfo().execute();
             }
         });
 
@@ -107,21 +113,7 @@ public class        MainActivity
         setSupportActionBar(mDrawerToolbar);
 
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-
-        mDrawerToggle =
-                new ActionBarDrawerToggle(this, mDrawer, mDrawerToolbar, R.string.drawer_open , R.string.drawer_close)
-                {
-
-                    @Override
-                    public void onDrawerOpened(View drawerView) {
-                        super.onDrawerOpened(drawerView);
-                    }
-
-                    @Override
-                    public void onDrawerClosed(View drawerView) {
-                        super.onDrawerClosed(drawerView);
-                    }
-                };
+        mDrawerToggle = CreateActionBarToggle();
         mDrawer.setDrawerListener(mDrawerToggle);
 
         //dataLoader.getWeather((TextView)findViewById(R.id.MyTextView));
@@ -288,10 +280,26 @@ public class        MainActivity
         }
     }
 
-
-    public void PlacesAPI_getName(String placeID)
+    private ActionBarDrawerToggle CreateActionBarToggle()
     {
-        Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeID)
+        return new ActionBarDrawerToggle(this, mDrawer, mDrawerToolbar, R.string.drawer_open , R.string.drawer_close)
+        {
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+                super.onDrawerClosed(drawerView);
+            }
+        };
+    }
+
+    public void PlacesAPI_getName(GoogleApiClient googleApiClient, String placeID)
+    {
+        Places.GeoDataApi.getPlaceById(googleApiClient, placeID)
                 .setResultCallback(new ResultCallback<PlaceBuffer>() {
                     @Override
                     public void onResult(PlaceBuffer places) {

@@ -1,8 +1,5 @@
 package hr.evolaris.air.foi.evolaris_smarttourism.c_location;
 
-import android.widget.TextView;
-
-import java.util.concurrent.CountDownLatch;
 
 import hr.evolaris.air.foi.evolaris_smarttourism.db.Latch;
 import retrofit.Callback;
@@ -25,22 +22,30 @@ public class LocationDataLoader
         webServiceCall = restAdapter.create(WebServiceCall.class);
     }
 
-
     private Callback<LocationList> BaseCallback = new Callback<LocationList>()
     {
 
         @Override
         public void success(LocationList locationList, Response response)
         {
-            Latch.getLatch().countDownLatch.countDown();
-            Location L = locationList.results.get(0);
-            String pID = L.place_id;
+            LocationIntermediaryResult.response = response;
+            if(locationList.results.size() > 0)
+            {
+                LocationIntermediaryResult.locationList = locationList;
+                Location L = locationList.results.get(0);
+                String pID = L.place_id;
+            }
+            else
+            {
 
+            }
+            Latch.getLatch().countDownLatch.countDown();
         }
 
         @Override
         public void failure(RetrofitError error)
         {
+            error.printStackTrace();
             Latch.getLatch().countDownLatch.countDown();
         }
     };
@@ -50,7 +55,7 @@ public class LocationDataLoader
 
         webServiceCall.getLocations(LocationContextConstants.SEARCH_TYPE_NEARBY, LocationContextConstants.FORMAT_JSON,
                                     latitude + "," + longitude,
-                                    5000, "museum",
+                                    5000, "restaurant",
                                     APIKey, BaseCallback);
     }
 }

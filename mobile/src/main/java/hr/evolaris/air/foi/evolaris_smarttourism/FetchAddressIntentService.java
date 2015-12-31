@@ -11,9 +11,11 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.CountDownLatch;
 
 public class FetchAddressIntentService extends IntentService
 {
@@ -37,6 +39,7 @@ public class FetchAddressIntentService extends IntentService
 
         Location location = intent.getParcelableExtra(Constants.LOCATION_DATA_EXTRA);
         resultReceiver = intent.getParcelableExtra(Constants.RECEIVER);
+
         List<Address> addresses = null;
 
         try
@@ -60,7 +63,7 @@ public class FetchAddressIntentService extends IntentService
                 errorMessage = getString(R.string.address_not_found);
                 Log.e("", errorMessage);
             }
-            deliverResultToReceiver(Constants.FAILURE_RESULT, errorMessage);
+            deliverResultToReceiver(intent, Constants.FAILURE_RESULT, errorMessage);
         }
         else
         {
@@ -71,16 +74,18 @@ public class FetchAddressIntentService extends IntentService
                 addressFragments.add(address.getAddressLine(i));
             }
             Log.i("", getString(R.string.address_found));
-            deliverResultToReceiver(Constants.SUCCESS_RESULT,
+            deliverResultToReceiver(intent,
+                                    Constants.SUCCESS_RESULT,
                                     TextUtils.join(System.getProperty("line.separator"),
                                                     addressFragments));
         }
     }
 
-    private void deliverResultToReceiver(int resultCode, String message)
+    private void deliverResultToReceiver(Intent intent, int resultCode, String message)
     {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.RESULT_DATA_KEY, message);
+
         resultReceiver.send(resultCode, bundle);
     }
 }

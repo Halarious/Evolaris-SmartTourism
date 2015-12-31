@@ -31,8 +31,10 @@ public class WeatherDataLoader
         @Override
         public void success(Weather weather, Response response)
         {
-            Latch.getLatch().countDownLatch.countDown();
+            WeatherIntermediaryResult.response = response;
+            WeatherIntermediaryResult.weather = weather;
 
+            Latch.getLatch().countDownLatch.countDown();
         }
 
         @Override
@@ -46,6 +48,8 @@ public class WeatherDataLoader
 
     public void getWeather(String latitude, String longitude)
     {
+        WeatherIntermediaryResult.weather = null;
+        WeatherIntermediaryResult.response = null;
         webServiceCall.getWeather( latitude, longitude,
                                     APIKey, BaseCallback);
     }

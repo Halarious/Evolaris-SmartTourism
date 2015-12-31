@@ -6,6 +6,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -18,6 +19,7 @@ public class CurrentLocation implements LocationListener
     private int priority;
 
     public String lastUpdateTime;
+    public Location previousLocation;
     public Location currentLocation;
 
     private CurrentLocation()
@@ -41,6 +43,7 @@ public class CurrentLocation implements LocationListener
     @Override
     public void onLocationChanged(Location location)
     {
+        previousLocation = currentLocation;
         currentLocation = location;
         lastUpdateTime = DateFormat.getTimeInstance().format(new Date());
     }
