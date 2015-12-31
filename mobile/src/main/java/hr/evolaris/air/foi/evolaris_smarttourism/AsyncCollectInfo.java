@@ -8,29 +8,30 @@ import java.util.List;
 import hr.evolaris.air.foi.evolaris_smarttourism.c_location.LocationDataLoader;
 import hr.evolaris.air.foi.evolaris_smarttourism.c_location.LocationIntermediaryResult;
 import hr.evolaris.air.foi.evolaris_smarttourism.c_weather.WeatherDataLoader;
-import hr.evolaris.air.foi.evolaris_smarttourism.db.Latch;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.Latches;
 
 public class AsyncCollectInfo extends AsyncTask<Location, Integer, String>
 {
     @Override
     protected String doInBackground(Location... params)
     {
+        final Location userLocation = UserLocationManager.getInstance().currentLocation;
         final LocationDataLoader locationDataLoader;
         final WeatherDataLoader weatherDataLoader;
         locationDataLoader = new LocationDataLoader();
         weatherDataLoader = new WeatherDataLoader();
 
-        String latitude = String.valueOf(params[0].getLatitude());
-        String longitude = String.valueOf(params[0].getLongitude());
+        String latitude = String.valueOf(userLocation.getLatitude());
+        String longitude = String.valueOf(userLocation.getLongitude());
 
-        Latch.getLatch().setCountDownLatch(2);
+        Latches.getLatch().setCountDownLatch(2);
 
         locationDataLoader.getMuseums(latitude, longitude);
         weatherDataLoader.getWeather(latitude, longitude);
 
         try
         {
-            Latch.getLatch().countDownLatch.await();
+            Latches.getLatch().countDownLatch.await();
         }
         catch (InterruptedException e)
         {

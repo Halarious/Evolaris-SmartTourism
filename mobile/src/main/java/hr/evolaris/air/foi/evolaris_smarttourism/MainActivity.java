@@ -17,7 +17,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -30,14 +29,9 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
-import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.Phaser;
 
-import hr.evolaris.air.foi.evolaris_smarttourism.db.CurrentLocation;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
 
 public class        MainActivity
@@ -49,7 +43,7 @@ public class        MainActivity
     private PopupWindow popupWindow;
 
     private GoogleApiClient mGoogleApiClient;
-    private CurrentLocation userLocationInstance;
+    private UserLocationManager userLocationInstance;
     private AddressResultReceiver addressResultReceiver;
 
     private DrawerLayout mDrawer;
@@ -57,13 +51,14 @@ public class        MainActivity
     private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         initializeGoogleApiClient();
 
-        userLocationInstance = CurrentLocation.getInstance();
+        userLocationInstance = UserLocationManager.getInstance();
         addressResultReceiver = new AddressResultReceiver(new Handler());
 
         popupWindow = new PopupWindow(this);
@@ -73,9 +68,8 @@ public class        MainActivity
         popupWindow.setAnimationStyle(R.style.AnimationPopup);
 
         String placeID = "ChIJlR89EtaqaEcR75ls5fh12cs";
-        PlacesAPI_getName( mGoogleApiClient, placeID);
+        PlacesAPI_getName(mGoogleApiClient, placeID);
 
-        new AsyncCollectInfo().execute(userLocationInstance.currentLocation);
         Button clicky = (Button)findViewById(R.id.clicky);
         clicky.setOnClickListener(new View.OnClickListener() {
 
@@ -85,6 +79,7 @@ public class        MainActivity
                 ((TextView) findViewById(R.id.MyTextView)).setText(
                         "");
                 sendMessage(MessageActions.START_ACTIVITY.text, "");
+                new AsyncCollectInfo().execute(userLocationInstance.currentLocation);
 
             }
         });

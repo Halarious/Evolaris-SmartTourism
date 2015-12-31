@@ -2,12 +2,12 @@ package hr.evolaris.air.foi.evolaris_smarttourism.db;
 
 import java.util.concurrent.CountDownLatch;
 
-public class Latch
+public class Latches
 {
-    private static Latch instance;
+    private static Latches instance;
     public CountDownLatch countDownLatch;
 
-    private Latch()
+    private Latches()
     {
         countDownLatch = null;
     }
@@ -17,11 +17,11 @@ public class Latch
         countDownLatch = new CountDownLatch(count);
         return countDownLatch;
     }
-    public static Latch getLatch()
+    public static Latches getLatch()
     {
         if(instance == null)
         {
-            instance = new Latch();
+            instance = new Latches();
         }
         return instance;
     }

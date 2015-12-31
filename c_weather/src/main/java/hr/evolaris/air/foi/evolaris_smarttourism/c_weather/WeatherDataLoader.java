@@ -1,10 +1,6 @@
 package hr.evolaris.air.foi.evolaris_smarttourism.c_weather;
 
-import android.widget.TextView;
-
-import java.util.concurrent.CountDownLatch;
-
-import hr.evolaris.air.foi.evolaris_smarttourism.db.Latch;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.Latches;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -34,13 +30,13 @@ public class WeatherDataLoader
             WeatherIntermediaryResult.response = response;
             WeatherIntermediaryResult.weather = weather;
 
-            Latch.getLatch().countDownLatch.countDown();
+            Latches.getLatch().countDownLatch.countDown();
         }
 
         @Override
         public void failure(RetrofitError error)
         {
-            Latch.getLatch().countDownLatch.countDown();
+            Latches.getLatch().countDownLatch.countDown();
 
             error.printStackTrace();
         }

@@ -1,7 +1,7 @@
 package hr.evolaris.air.foi.evolaris_smarttourism.c_location;
 
 
-import hr.evolaris.air.foi.evolaris_smarttourism.db.Latch;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.Latches;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -39,14 +39,14 @@ public class LocationDataLoader
             {
 
             }
-            Latch.getLatch().countDownLatch.countDown();
+            Latches.getLatch().countDownLatch.countDown();
         }
 
         @Override
         public void failure(RetrofitError error)
         {
             error.printStackTrace();
-            Latch.getLatch().countDownLatch.countDown();
+            Latches.getLatch().countDownLatch.countDown();
         }
     };
 

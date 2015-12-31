@@ -1,4 +1,4 @@
-package hr.evolaris.air.foi.evolaris_smarttourism.db;
+package hr.evolaris.air.foi.evolaris_smarttourism;
 
 import android.location.Location;
 
@@ -6,35 +6,35 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.model.LatLng;
 
 import java.text.DateFormat;
 import java.util.Date;
 
-public class CurrentLocation implements LocationListener
+public class UserLocationManager implements LocationListener
 {
-    private static CurrentLocation instance;
+    private static UserLocationManager instance;
     private static LocationRequest locationRequest;
     private int interval;
     private int priority;
-
+    private float minDisplacement;
     public String lastUpdateTime;
     public Location previousLocation;
     public Location currentLocation;
 
-    private CurrentLocation()
+    private UserLocationManager()
     {
         interval = 10000;
+        minDisplacement = 100;
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY;
 
         createLocationRequest();
     }
 
-    public static CurrentLocation getInstance()
+    public static UserLocationManager getInstance()
     {
         if(instance == null)
         {
-            instance = new CurrentLocation();
+            instance = new UserLocationManager();
         }
         return instance;
     }
@@ -46,14 +46,17 @@ public class CurrentLocation implements LocationListener
         previousLocation = currentLocation;
         currentLocation = location;
         lastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+
+        new AsyncCollectInfo().execute();
     }
 
     private void createLocationRequest()
     {
         locationRequest = new LocationRequest();
         locationRequest.setInterval(interval);
-        locationRequest.setFastestInterval(interval/3);
+        locationRequest.setFastestInterval(interval / 3);
         locationRequest.setPriority(priority);
+        locationRequest.setSmallestDisplacement(minDisplacement);
     }
 
     public void startLocationUpdated(GoogleApiClient mGoogleApiClient)

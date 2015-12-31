@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/Evolaris-SmartTourism-dev.iml" filepath="$PROJECT_DIR$/Evolaris-SmartTourism-dev.iml" />
       <module fileurl="file://$PROJECT_DIR$/algorithm/algorithm.iml" filepath="$PROJECT_DIR$/algorithm/algorithm.iml" />
       <module fileurl="file://$PROJECT_DIR$/c_location/c_location.iml" filepath="$PROJECT_DIR$/c_location/c_location.iml" />
+      <module fileurl="file://$PROJECT_DIR$/c_time/c_time.iml" filepath="$PROJECT_DIR$/c_time/c_time.iml" />
       <module fileurl="file://$PROJECT_DIR$/c_weather/c_weather.iml" filepath="$PROJECT_DIR$/c_weather/c_weather.iml" />
       <module fileurl="file://$PROJECT_DIR$/db/db.iml" filepath="$PROJECT_DIR$/db/db.iml" />
       <module fileurl="file://$PROJECT_DIR$/mobile/mobile.iml" filepath="$PROJECT_DIR$/mobile/mobile.iml" />

@@ -22,12 +22,12 @@ public class DistanceDataLoader
         webServiceCall = restAdapter.create(DistanceWebServiceCall.class);
     }
 
-    public void getDistance(ArrayList<LatLng> origins, ArrayList<LatLng> destinations)
+    public void getDistanceMatrix(ArrayList<LatLng> origins, ArrayList<LatLng> destinations)
     {
         String latitude = String.valueOf(origins.get(0).latitude);
         String longitude = String.valueOf(origins.get(0).longitude);
 
-        webServiceCall.getDistance("json",
+        webServiceCall.getDistanceMatrix("json",
                 latitude + "," + longitude,
                 latitude + "," + longitude,
                 "walking",

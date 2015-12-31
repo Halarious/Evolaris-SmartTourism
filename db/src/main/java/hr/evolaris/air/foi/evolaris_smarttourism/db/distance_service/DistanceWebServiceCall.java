@@ -7,8 +7,8 @@ import retrofit.http.Query;
 public interface DistanceWebServiceCall
 {
     @GET("/maps/api/distancematrix/{outputFormat}")
-    String getDistance( @Path("outputFormat") String outputFormat,
-                        @Query("origins") String originLatitudeLongitude,
-                        @Query("destinations") String destinationLatitudeLongitude,
-                        @Query("mode") String mode, @Query("key") String apiKey);
+    String getDistanceMatrix( @Path("outputFormat") String outputFormat,
+                            @Query("origins") String originLatitudeLongitude,
+                            @Query("destinations") String destinationLatitudeLongitude,
+                            @Query("mode") String mode, @Query("key") String apiKey);
 }
