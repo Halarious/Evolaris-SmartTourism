@@ -35,6 +35,7 @@ import com.google.android.gms.wearable.Wearable;
 import java.text.DateFormat;
 import java.util.Date;
 
+import hr.evolaris.air.foi.evolaris_smarttourism.c_weather.WeatherIntermediaryResult;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
 
 public class        MainActivity
@@ -73,7 +74,7 @@ public class        MainActivity
         String placeID = "ChIJlR89EtaqaEcR75ls5fh12cs";
         PlacesAPI_getName(mGoogleApiClient, placeID);
 
-        final Context context = this;
+        TestHandle.context = this;
         Button clicky = (Button)findViewById(R.id.clicky);
         clicky.setOnClickListener(new View.OnClickListener() {
 
@@ -83,7 +84,7 @@ public class        MainActivity
                 ((TextView) findViewById(R.id.MyTextView)).setText(
                         "");
                 sendMessage(MessageActions.START_ACTIVITY.text, "");
-                TestHandle.progressDialog = TestHandle.progressDialog.show(context, "", "", true);
+                TestHandle.progressDialog = TestHandle.progressDialog.show(TestHandle.context, "Processing", "Please wait", true);
                 new AsyncCollectInfo().execute();
             }
         });
@@ -338,7 +339,7 @@ public class        MainActivity
             else
             if (resultCode == Constants.FAILURE_RESULT)
             {
-
+                //TODO(rob): logging
             }
 
         }

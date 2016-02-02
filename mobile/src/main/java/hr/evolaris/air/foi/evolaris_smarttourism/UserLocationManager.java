@@ -47,7 +47,8 @@ public class UserLocationManager implements LocationListener
         currentLocation = location;
         lastUpdateTime = DateFormat.getTimeInstance().format(new Date());
 
-        //new AsyncCollectInfo().execute();
+        TestHandle.progressDialog = TestHandle.progressDialog.show(TestHandle.context, "Processing", "Please wait", true);
+        new AsyncCollectInfo().execute();
     }
 
     private void createLocationRequest()

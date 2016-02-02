@@ -5,18 +5,27 @@ import java.util.concurrent.CountDownLatch;
 public class Latches
 {
     private static Latches instance;
-    public CountDownLatch countDownLatch;
+    public CountDownLatch fetchCountDownLatch;
+    public CountDownLatch deliverCountDownLatch;
 
     private Latches()
     {
-        countDownLatch = null;
+        fetchCountDownLatch = null;
+        deliverCountDownLatch = null;
     }
 
-    public CountDownLatch setCountDownLatch(int count)
+    public CountDownLatch setFetchCountDownLatch(int count)
     {
-        countDownLatch = new CountDownLatch(count);
-        return countDownLatch;
+        fetchCountDownLatch = new CountDownLatch(count);
+        return fetchCountDownLatch;
     }
+
+    public CountDownLatch setDeliverCountDownLatch(int count)
+    {
+        deliverCountDownLatch = new CountDownLatch(count);
+        return deliverCountDownLatch;
+    }
+
     public static Latches getLatch()
     {
         if(instance == null)

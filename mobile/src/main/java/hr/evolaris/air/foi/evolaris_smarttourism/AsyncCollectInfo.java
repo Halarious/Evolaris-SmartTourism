@@ -25,40 +25,68 @@ public class AsyncCollectInfo extends AsyncTask<Location, Integer, String>
         locationDataLoader = new LocationDataLoader();
         weatherDataLoader = new WeatherDataLoader();
 
-        String latitude = String.valueOf(userLocation.getLatitude());
-        String longitude = String.valueOf(userLocation.getLongitude());
-
-        Latches.getLatch().setCountDownLatch(2);
-
-        locationDataLoader.getMuseums(latitude, longitude);
-        weatherDataLoader.getWeather(latitude, longitude);
-
-        try
+        if(userLocation != null)
         {
-            Latches.getLatch().countDownLatch.await();
-            TimeIntermediaryResult.timePoint = new TimePoint();
-            returnMessage = "Success!";
+            String latitude = String.valueOf(userLocation.getLatitude());
+            String longitude = String.valueOf(userLocation.getLongitude());
+
+            Latches.getLatch().setFetchCountDownLatch(2);
+
+            locationDataLoader.getMuseums(latitude, longitude);
+            weatherDataLoader.getWeather(latitude, longitude);
+
+            try {
+                Latches.getLatch().fetchCountDownLatch.await();
+                TimeIntermediaryResult.timePoint = new TimePoint();
+                returnMessage = "Success!";
+            } catch (InterruptedException e) {
+                returnMessage = "Interrupt exception!";
+                e.printStackTrace();
+            }
         }
-        catch (InterruptedException e)
+        else
         {
-            returnMessage = "Interrupt exception!";
-            e.printStackTrace();
+            returnMessage = "User location cannot be retrieved!";
         }
 
-        TestHandle.progressDialog.dismiss();
+        //TODO(rob): Remove this eventually
+        if (TestHandle.progressDialog != null) {
+            TestHandle.progressDialog.dismiss();
+        }
 
         return returnMessage;
     }
 
     @Override
-    protected void onPostExecute(String s)
+    protected void onPostExecute(String returnMessage)
     {
-        List<hr.evolaris.air.foi.evolaris_smarttourism.c_location.Location> locationList =
-                LocationIntermediaryResult.locationList.results;
-        if(locationList.size() > 0 && LocationIntermediaryResult.locationList.status == "OK")
+        switch(returnMessage)
         {
+            case "Success!":
+            {
+                List<hr.evolaris.air.foi.evolaris_smarttourism.c_location.Location> locationList =
+                        LocationIntermediaryResult.locationList.results;
+                if(locationList.size() > 0 && LocationIntermediaryResult.locationList.status == "OK")
+                {
+
+                }
+
+            } break;
+
+            case "Interrupt Exception":
+            {
+
+            } break;
+
+            case "User location cannot be retrieved!":
+            {
+
+            } break;
+
+            default:
 
         }
-        super.onPostExecute(s);
+
+        super.onPostExecute(returnMessage);
     }
 }

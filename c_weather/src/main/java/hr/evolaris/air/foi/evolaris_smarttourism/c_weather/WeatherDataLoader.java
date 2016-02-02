@@ -30,13 +30,13 @@ public class WeatherDataLoader
             WeatherIntermediaryResult.response = response;
             WeatherIntermediaryResult.weather = weather;
 
-            Latches.getLatch().countDownLatch.countDown();
+            Latches.getLatch().fetchCountDownLatch.countDown();
         }
 
         @Override
         public void failure(RetrofitError error)
         {
-            Latches.getLatch().countDownLatch.countDown();
+            Latches.getLatch().fetchCountDownLatch.countDown();
 
             error.printStackTrace();
         }

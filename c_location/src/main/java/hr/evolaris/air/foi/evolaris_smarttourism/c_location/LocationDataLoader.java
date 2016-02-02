@@ -39,14 +39,14 @@ public class LocationDataLoader
             {
 
             }
-            Latches.getLatch().countDownLatch.countDown();
+            Latches.getLatch().fetchCountDownLatch.countDown();
         }
 
         @Override
         public void failure(RetrofitError error)
         {
             error.printStackTrace();
-            Latches.getLatch().countDownLatch.countDown();
+            Latches.getLatch().fetchCountDownLatch.countDown();
         }
     };
 
