@@ -35,14 +35,17 @@ public class AsyncCollectInfo extends AsyncTask<Location, Integer, String>
             locationDataLoader.getMuseums(latitude, longitude);
             weatherDataLoader.getWeather(latitude, longitude);
 
-            try {
+            try
+            {
                 Latches.getLatch().fetchCountDownLatch.await();
                 TimeIntermediaryResult.timePoint = new TimePoint();
                 returnMessage = "Success!";
-            } catch (InterruptedException e) {
+            } catch (InterruptedException e)
+            {
                 returnMessage = "Interrupt exception!";
                 e.printStackTrace();
             }
+
         }
         else
         {

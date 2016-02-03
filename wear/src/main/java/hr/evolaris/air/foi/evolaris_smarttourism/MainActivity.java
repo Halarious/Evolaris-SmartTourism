@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.wearable.view.DelayedConfirmationView;
 import android.support.wearable.view.DismissOverlayView;
+import android.support.wearable.view.GridViewPager;
 import android.support.wearable.view.WearableListView;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -22,18 +23,16 @@ public class MainActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*setContentView(R.layout.round_activity_main);
+        setContentView(R.layout.round_activity_main);
 
-        mDelayedView =
+        /*mDelayedView =
                 (DelayedConfirmationView) findViewById(R.id.delayed_confirm);
-        mDelayedView.setListener(this);
+        mDelayedView.setListener(this);*/
 
 
         final GridViewPager gridViewPager = (GridViewPager)findViewById(R.id.pager);
         gridViewPager.setAdapter(new GridPageAdapter(this, getFragmentManager()));
 
-            }
-        });*/
 
 
     }
