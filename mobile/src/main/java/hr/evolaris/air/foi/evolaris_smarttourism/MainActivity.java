@@ -96,7 +96,7 @@ public class        MainActivity
             {
                 ((TextView) findViewById(R.id.MyTextView2)).setText(
                         userLocationInstance.lastUpdateTime);
-
+                sendMessage(MessageActions.RECEIVE_RECOMMENDATION.text, "");
                 if(!popupWindow.isShowing())
                 {
                 popupWindow.showAtLocation(popupView.findViewById(R.id.popup_view), Gravity.BOTTOM, 10, 10);

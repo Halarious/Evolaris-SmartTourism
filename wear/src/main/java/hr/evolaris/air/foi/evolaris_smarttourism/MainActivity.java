@@ -12,45 +12,25 @@ import android.view.View;
 
 public class MainActivity
         extends     Activity
-        implements  WearableListView.ClickListener,
-                    DelayedConfirmationView.DelayedConfirmationListener
+        implements  DelayedConfirmationView.DelayedConfirmationListener
 {
 
     private DelayedConfirmationView mDelayedView;
-    private DismissOverlayView mDismissOverlay;
-    private GestureDetector mDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.round_activity_main);
+        //setContentView(R.layout.round_activity_main);
 
         /*mDelayedView =
                 (DelayedConfirmationView) findViewById(R.id.delayed_confirm);
         mDelayedView.setListener(this);*/
-
-
-        final GridViewPager gridViewPager = (GridViewPager)findViewById(R.id.pager);
-        gridViewPager.setAdapter(new GridPageAdapter(this, getFragmentManager()));
-
-
 
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         return super.onTouchEvent(event);//mDetector.onTouchEvent(event) ||
-    }
-
-    @Override
-    public void onClick(WearableListView.ViewHolder viewHolder)
-    {
-        Integer tag = (Integer)viewHolder.itemView.getTag();
-    }
-
-    @Override
-    public void onTopEmptyRegionClick() {
-
     }
 
     @Override

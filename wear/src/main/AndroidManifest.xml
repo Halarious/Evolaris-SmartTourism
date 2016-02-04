@@ -28,6 +28,11 @@
             android:theme="@android:style/Theme.DeviceDefault"
             />
 
+        <activity
+            android:name=".RecommendationActivity"
+            android:theme="@android:style/Theme.DeviceDefault"
+            />
+
 
         <service android:name=".NotificationListenerService">
             <intent-filter>

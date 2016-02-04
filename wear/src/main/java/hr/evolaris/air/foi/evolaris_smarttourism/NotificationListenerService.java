@@ -27,7 +27,7 @@ public class NotificationListenerService
         }
         else if (messageEvent.getPath().equalsIgnoreCase(MessageActions.RECEIVE_RECOMMENDATION.text))
         {
-            Intent intent = new Intent(this, WearableListViewActivity.class);
+            Intent intent = new Intent(this, RecommendationActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }

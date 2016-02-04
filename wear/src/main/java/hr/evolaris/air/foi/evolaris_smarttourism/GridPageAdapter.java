@@ -21,15 +21,15 @@ public class GridPageAdapter
 
     private static class Page
     {
-        int titleRes;
-        int textRes;
-        int iconRes;
+        int titleResource;
+        int textResource;
+        int iconResource;
 
         public Page(int t, int tx, int i)
         {
-            this.titleRes = t;
-            this.textRes = tx;
-            this.iconRes = i;
+            this.titleResource = t;
+            this.textResource = tx;
+            this.iconResource = i;
         }
     }
 
@@ -72,10 +72,11 @@ public class GridPageAdapter
     @Override
     public Fragment getFragment(int row, int column) {
         Page page = PAGES[row][column];
-        String title = page.titleRes != 0 ? mContext.getString(page.titleRes): null;
-        String text = page.textRes != 0 ? mContext.getString(page.textRes): null;
+        String title = page.titleResource != 0 ? mContext.getString(page.titleResource): null;
+        String text = page.textResource != 0 ? mContext.getString(page.textResource): null;
 
-        CardFragment cardFragment = CardFragment.create(title, text, page.iconRes);
+        CardFragment cardFragment = CardFragment.create(title, text, page.iconResource);
+        cardFragment.setCardMargins(10, 120, 10, 0);
         cardFragment.setCardGravity(0);
         cardFragment.setExpansionEnabled(false);
         cardFragment.setExpansionDirection(0);
