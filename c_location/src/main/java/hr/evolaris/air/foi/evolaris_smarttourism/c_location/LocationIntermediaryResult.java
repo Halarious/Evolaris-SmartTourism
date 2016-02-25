@@ -6,5 +6,4 @@ public class LocationIntermediaryResult
 {
     public static Response response;
     public static LocationList locationList;
-
 }

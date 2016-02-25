@@ -19,9 +19,11 @@ public class AsyncCollectInfo extends AsyncTask<Location, Integer, String>
     {
         String returnMessage;
 
-        final Location userLocation = UserLocationManager.getInstance().currentLocation;
         final LocationDataLoader locationDataLoader;
         final WeatherDataLoader weatherDataLoader;
+
+        final Location userLocation = UserLocationManager.getInstance().currentLocation;
+
         locationDataLoader = new LocationDataLoader();
         weatherDataLoader = new WeatherDataLoader();
 

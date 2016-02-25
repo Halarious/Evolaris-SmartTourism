@@ -18,7 +18,6 @@
             <option value="$PROJECT_DIR$/mobile" />
             <option value="$PROJECT_DIR$/tourismunit" />
             <option value="$PROJECT_DIR$/wear" />
-            <option value="$PROJECT_DIR$/ws" />
           </set>
         </option>
       </GradleProjectSettings>

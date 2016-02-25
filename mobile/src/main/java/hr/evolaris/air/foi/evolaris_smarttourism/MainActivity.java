@@ -27,16 +27,19 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import hr.evolaris.air.foi.evolaris_smarttourism.c_weather.WeatherIntermediaryResult;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.distance_service.DistanceDataLoader;
 
 public class        MainActivity
         extends     AppCompatActivity
@@ -44,6 +47,9 @@ public class        MainActivity
         implements  GoogleApiClient.OnConnectionFailedListener,
                     GoogleApiClient.ConnectionCallbacks
 {
+    //TEST JUNK
+    private DistanceDataLoader distanceDataLoader;
+
     private PopupWindow popupWindow;
 
     private GoogleApiClient mGoogleApiClient;
@@ -61,6 +67,8 @@ public class        MainActivity
         setContentView(R.layout.activity_main);
 
         initializeGoogleApiClient();
+
+        distanceDataLoader = new DistanceDataLoader();
 
         userLocationInstance = UserLocationManager.getInstance();
         addressResultReceiver = new AddressResultReceiver(new Handler());
@@ -97,6 +105,13 @@ public class        MainActivity
                 ((TextView) findViewById(R.id.MyTextView2)).setText(
                         userLocationInstance.lastUpdateTime);
                 sendMessage(MessageActions.RECEIVE_RECOMMENDATION.text, "");
+
+                LatLng someLocation= new LatLng(46.305016, 16.333277);
+                ArrayList<LatLng> someLocationsList = new ArrayList<LatLng>();
+                someLocationsList.add(someLocation);
+
+                distanceDataLoader.getDistanceMatrix(someLocationsList, null);
+
                 if(!popupWindow.isShowing())
                 {
                 popupWindow.showAtLocation(popupView.findViewById(R.id.popup_view), Gravity.BOTTOM, 10, 10);
