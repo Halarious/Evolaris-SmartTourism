@@ -34,7 +34,10 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import hr.evolaris.air.foi.evolaris_smarttourism.db.AsyncCollectInfo;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.TestHandle;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.UserLocationManager;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.distance_service.DistanceDataLoader;
 
 public class        MainActivity

@@ -7,9 +7,9 @@
       <module fileurl="file://$PROJECT_DIR$/c_location/c_location.iml" filepath="$PROJECT_DIR$/c_location/c_location.iml" />
       <module fileurl="file://$PROJECT_DIR$/c_time/c_time.iml" filepath="$PROJECT_DIR$/c_time/c_time.iml" />
       <module fileurl="file://$PROJECT_DIR$/c_weather/c_weather.iml" filepath="$PROJECT_DIR$/c_weather/c_weather.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
       <module fileurl="file://$PROJECT_DIR$/db/db.iml" filepath="$PROJECT_DIR$/db/db.iml" />
       <module fileurl="file://$PROJECT_DIR$/mobile/mobile.iml" filepath="$PROJECT_DIR$/mobile/mobile.iml" />
-      <module fileurl="file://$PROJECT_DIR$/tourismunit/tourismunit.iml" filepath="$PROJECT_DIR$/tourismunit/tourismunit.iml" />
       <module fileurl="file://$PROJECT_DIR$/wear/wear.iml" filepath="$PROJECT_DIR$/wear/wear.iml" />
     </modules>
   </component>

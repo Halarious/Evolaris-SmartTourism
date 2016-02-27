@@ -14,9 +14,9 @@
             <option value="$PROJECT_DIR$/c_location" />
             <option value="$PROJECT_DIR$/c_time" />
             <option value="$PROJECT_DIR$/c_weather" />
+            <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/db" />
             <option value="$PROJECT_DIR$/mobile" />
-            <option value="$PROJECT_DIR$/tourismunit" />
             <option value="$PROJECT_DIR$/wear" />
           </set>
         </option>

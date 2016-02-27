@@ -1,4 +1,4 @@
-package hr.evolaris.air.foi.evolaris_smarttourism.db;
+package hr.evolaris.air.foi.evolaris_smarttourism.core;
 
 import java.util.concurrent.CountDownLatch;
 

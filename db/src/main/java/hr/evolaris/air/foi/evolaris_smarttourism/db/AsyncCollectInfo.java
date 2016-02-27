@@ -1,4 +1,4 @@
-package hr.evolaris.air.foi.evolaris_smarttourism;
+package hr.evolaris.air.foi.evolaris_smarttourism.db;
 
 import android.location.Location;
 import android.os.AsyncTask;
@@ -10,7 +10,7 @@ import hr.evolaris.air.foi.evolaris_smarttourism.c_location.LocationIntermediary
 import hr.evolaris.air.foi.evolaris_smarttourism.c_time.TimeIntermediaryResult;
 import hr.evolaris.air.foi.evolaris_smarttourism.c_time.TimePoint;
 import hr.evolaris.air.foi.evolaris_smarttourism.c_weather.WeatherDataLoader;
-import hr.evolaris.air.foi.evolaris_smarttourism.db.Latches;
+import hr.evolaris.air.foi.evolaris_smarttourism.core.Latches;
 
 public class AsyncCollectInfo extends AsyncTask<Location, Integer, String>
 {

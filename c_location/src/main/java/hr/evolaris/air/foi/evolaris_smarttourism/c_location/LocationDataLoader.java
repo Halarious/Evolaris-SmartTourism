@@ -1,7 +1,7 @@
 package hr.evolaris.air.foi.evolaris_smarttourism.c_location;
 
 
-import hr.evolaris.air.foi.evolaris_smarttourism.db.Latches;
+import hr.evolaris.air.foi.evolaris_smarttourism.core.Latches;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;

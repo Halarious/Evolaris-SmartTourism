@@ -1,4 +1,4 @@
-package hr.evolaris.air.foi.evolaris_smarttourism;
+package hr.evolaris.air.foi.evolaris_smarttourism.db;
 
 import android.location.Location;
 
