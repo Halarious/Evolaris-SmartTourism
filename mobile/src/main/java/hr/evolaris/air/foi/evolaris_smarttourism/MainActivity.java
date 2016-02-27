@@ -1,8 +1,5 @@
 package hr.evolaris.air.foi.evolaris_smarttourism;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Handler;
@@ -37,7 +34,6 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import hr.evolaris.air.foi.evolaris_smarttourism.c_weather.WeatherIntermediaryResult;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.distance_service.DistanceDataLoader;
 
