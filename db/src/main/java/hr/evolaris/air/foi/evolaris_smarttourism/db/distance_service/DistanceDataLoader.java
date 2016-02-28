@@ -5,6 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
 
+import hr.evolaris.air.foi.evolaris_smarttourism.core.Latches;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -40,12 +41,15 @@ public class DistanceDataLoader
             {
 
             }
+
+            Latches.getLatch().DistanceMatrixCountDownLatch.countDown();
         }
 
         @Override
         public void failure(RetrofitError error)
         {
             error.printStackTrace();
+            Latches.getLatch().DistanceMatrixCountDownLatch.countDown();
         }
     };
 
@@ -54,30 +58,25 @@ public class DistanceDataLoader
         String originLatitude = String.valueOf(origins.get(0).latitude);
         String originLongitude = String.valueOf(origins.get(0).longitude);
 
-        String destinationLatitude = String.valueOf(destinations.get(0).latitude);
-        String destinationLongitude = String.valueOf(destinations.get(0).longitude);
-
-        /*
+        String destinationsLatLng;
+        String finalDestinationsLatLng = null;
         for (int i = 0; i < destinations.size(); i++)
         {
-
             destinationsLatLng = String.valueOf((destinations.get(i).latitude + "," + destinations.get(i).longitude));
 
-            if (destinationsLatLngIncrement.equals(destinations.size()-1))
+            if(i != 0)
             {
-                destinationsLatLngIncrement = String.valueOf((destinations.get(i++).latitude + "," + destinations.get(i++).longitude));
-
-                finalLatLng = destinationsLatLng + "|" + destinationsLatLngIncrement;
-
-            }else
-            {
-                finalLatLng = destinationsLatLng;
+                finalDestinationsLatLng = finalDestinationsLatLng + "|" + destinationsLatLng;
             }
-        } */
+            else
+            {
+                finalDestinationsLatLng = destinationsLatLng;
+            }
+        }
 
         webServiceCall.getDistanceMatrix("json",
                                         originLatitude + "," + originLongitude,
-                                        destinationLatitude + "," + destinationLongitude,
+                                        finalDestinationsLatLng,
                                         "walking",
                                         APIKey, BaseCallback);
     }

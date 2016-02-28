@@ -6,12 +6,12 @@ public class Latches
 {
     private static Latches instance;
     public CountDownLatch fetchCountDownLatch;
-    public CountDownLatch deliverCountDownLatch;
+    public CountDownLatch DistanceMatrixCountDownLatch;
 
     private Latches()
     {
         fetchCountDownLatch = null;
-        deliverCountDownLatch = null;
+        DistanceMatrixCountDownLatch = null;
     }
 
     public CountDownLatch setFetchCountDownLatch(int count)
@@ -20,10 +20,10 @@ public class Latches
         return fetchCountDownLatch;
     }
 
-    public CountDownLatch setDeliverCountDownLatch(int count)
+    public CountDownLatch setDistanceMatrixCountDownLatch(int count)
     {
-        deliverCountDownLatch = new CountDownLatch(count);
-        return deliverCountDownLatch;
+        DistanceMatrixCountDownLatch = new CountDownLatch(count);
+        return DistanceMatrixCountDownLatch;
     }
 
     public static Latches getLatch()

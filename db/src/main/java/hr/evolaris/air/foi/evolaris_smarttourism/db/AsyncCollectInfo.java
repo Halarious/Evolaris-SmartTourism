@@ -34,7 +34,7 @@ public class AsyncCollectInfo extends AsyncTask<Location, Integer, String>
 
             Latches.getLatch().setFetchCountDownLatch(2);
 
-            locationDataLoader.getMuseums(latitude, longitude);
+            locationDataLoader.getRestaurant(latitude, longitude);
             weatherDataLoader.getWeather(latitude, longitude);
 
             try

@@ -112,8 +112,7 @@ public class        MainActivity
 //
 //                distanceDataLoader.getDistanceMatrix(someLocationsList, someLocationsList);
 
-                SuggestionService suggestionService = new SuggestionService();
-                suggestionService.suggestionService();
+                new SuggestionService().execute();
 
                 if(!popupWindow.isShowing())
                 {
@@ -133,8 +132,7 @@ public class        MainActivity
             @Override
             public void onClick(View v)
             {
-                SuggestionService suggestionService = new SuggestionService();
-                suggestionService.suggestionService();
+                new SuggestionService().execute();
             }
         });
 

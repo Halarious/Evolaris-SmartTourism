@@ -9,5 +9,5 @@ public class Geometry
 {
     @SerializedName("location")
     @Expose
-    public android.location.Location location;
+    public LocationCoords location;
 }

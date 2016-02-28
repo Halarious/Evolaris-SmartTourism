@@ -32,8 +32,7 @@ public class LocationDataLoader
             if(locationList.results.size() > 0)
             {
                 LocationIntermediaryResult.locationList = locationList;
-                Location L = locationList.results.get(0);
-                String pID = L.place_id;
+
             }
             else
             {
@@ -50,12 +49,12 @@ public class LocationDataLoader
         }
     };
 
-    public void getMuseums(String latitude, String longitude)
+    public void getRestaurant(String latitude, String longitude)
     {
 
         webServiceCall.getLocations(LocationContextConstants.SEARCH_TYPE_NEARBY, LocationContextConstants.FORMAT_JSON,
                                     latitude + "," + longitude,
-                                    5000, "restaurant",
+                                    1000, "restaurant",
                                     APIKey, BaseCallback);
     }
 }
