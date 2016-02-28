@@ -9,6 +9,8 @@ import android.support.wearable.view.FragmentGridPagerAdapter;
 
 import java.util.List;
 
+import hr.evolaris.air.foi.evolaris_smarttourism.db.NotificationMessage;
+
 public class GridPageAdapter
     extends FragmentGridPagerAdapter
 {
@@ -16,16 +18,16 @@ public class GridPageAdapter
     private final Context mContext;
     private List mRows;
     static final int[] BG_IMAGES = new int[] {R.drawable.ic_doge, R.drawable.doge};
-    private final Page[][] PAGES = {{new Page(R.string.app_name,R.string.hello_square,R.drawable.card_background), new Page(R.string.app_name,R.string.hello_round,R.drawable.card_background)},
-                                    {new Page(R.string.app_name,R.string.hello_round,R.drawable.card_background)}};
+    private final Page[][] PAGES = {{new Page(NotificationMessage.title,R.string.hello_square,R.drawable.card_background), new Page(NotificationMessage.title,R.string.hello_round,R.drawable.card_background)},
+                                    {new Page(NotificationMessage.title,R.string.hello_round,R.drawable.card_background)}};
 
     private static class Page
     {
-        int titleResource;
+        String titleResource;
         int textResource;
         int iconResource;
 
-        public Page(int t, int tx, int i)
+        public Page(String t, int tx, int i)
         {
             this.titleResource = t;
             this.textResource = tx;
@@ -42,13 +44,13 @@ public class GridPageAdapter
     @Override
     public int getRowCount()
     {
-        return PAGES.length;
+        return 1;//PAGES.length;
     }
 
     @Override
     public int getColumnCount(int rowNum)
     {
-        return PAGES[rowNum].length;
+        return 1;//PAGES[rowNum].length;
     }
 
     @Override
@@ -72,8 +74,8 @@ public class GridPageAdapter
     @Override
     public Fragment getFragment(int row, int column) {
         Page page = PAGES[row][column];
-        String title = page.titleResource != 0 ? mContext.getString(page.titleResource): null;
-        String text = page.textResource != 0 ? mContext.getString(page.textResource): null;
+        String title = NotificationMessage.title;//page.titleResource != 0 ? mContext.getString(page.titleResource): null;
+        String text = NotificationMessage.message;//page.textResource != 0 ? mContext.getString(page.textResource): null;
 
         CardFragment cardFragment = CardFragment.create(title, text, page.iconResource);
         cardFragment.setCardMargins(10, 120, 10, 0);

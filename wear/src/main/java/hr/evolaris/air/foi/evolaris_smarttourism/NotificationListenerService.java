@@ -6,6 +6,7 @@ import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
 
 import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.NotificationMessage;
 
 public class NotificationListenerService
         extends WearableListenerService
@@ -18,6 +19,13 @@ public class NotificationListenerService
     @Override
     public void onMessageReceived(MessageEvent messageEvent)
     {
+        String stringData;
+        String[] stringTitleMessage;
+
+        stringData = ASCIItoCharacter(messageEvent.getData());
+        stringTitleMessage = stringData.split("-");
+        NotificationMessage.title = stringTitleMessage[0];
+        NotificationMessage.message = stringTitleMessage[1];
 
         if(messageEvent.getPath().equalsIgnoreCase(MessageActions.START_ACTIVITY.text))
         {
@@ -36,6 +44,24 @@ public class NotificationListenerService
             super.onMessageReceived(messageEvent);
         }
 
+    }
+
+    public String ASCIItoCharacter(byte[] characterMap)
+    {
+        String outputString = null;
+        for(int i = 0; i < characterMap.length; i++)
+        {
+            if(i==0)
+            {
+                outputString = Character.toString((char)characterMap[i]);
+            }
+            else
+            {
+                outputString = outputString + Character.toString((char)characterMap[i]);
+            }
+        }
+
+        return outputString;
     }
 
 }

@@ -19,7 +19,7 @@ public class RecommendationActivity
                 mDismissOverlay.show();
             }
 
-        }); Voda 126 */
+        }); */
 
         final GridViewPager gridViewPager = (GridViewPager)findViewById(R.id.pager);
         gridViewPager.setAdapter(new GridPageAdapter(this, getFragmentManager()));

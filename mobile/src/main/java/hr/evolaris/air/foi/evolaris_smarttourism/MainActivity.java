@@ -36,6 +36,7 @@ import java.util.Date;
 
 import hr.evolaris.air.foi.evolaris_smarttourism.db.AsyncCollectInfo;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.NotificationMessage;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.TestHandle;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.UserLocationManager;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.distance_service.DistanceDataLoader;
@@ -91,7 +92,11 @@ public class        MainActivity
             {
                 ((TextView) findViewById(R.id.MyTextView)).setText(
                         "");
-                sendMessage(MessageActions.START_ACTIVITY.text, "");
+                //sendMessage(MessageActions.START_ACTIVITY.text, "");
+                sendMessage(MessageActions.RECEIVE_RECOMMENDATION.text,
+                        NotificationMessage.title + "-" + NotificationMessage.message);
+
+
                 //TestHandle.progressDialog = TestHandle.progressDialog.show(TestHandle.context, "Processing", "Please wait", true);
                 //new AsyncCollectInfo().execute();
             }
@@ -104,7 +109,7 @@ public class        MainActivity
             {
                 ((TextView) findViewById(R.id.MyTextView2)).setText(
                         userLocationInstance.lastUpdateTime);
-                sendMessage(MessageActions.RECEIVE_RECOMMENDATION.text, "");
+                //sendMessage(MessageActions.RECEIVE_RECOMMENDATION.text, "");
 
 //                LatLng someLocation= new LatLng(46.305016, 16.333277);
 //                ArrayList<LatLng> someLocationsList = new ArrayList<LatLng>();
