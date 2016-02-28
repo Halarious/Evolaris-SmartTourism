@@ -11,7 +11,7 @@ public class Main
 
     @SerializedName("pressure")
     @Expose
-    public Integer pressure;
+    public Double pressure;
 
     @SerializedName("humidity")
     @Expose

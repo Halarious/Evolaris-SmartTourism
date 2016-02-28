@@ -39,6 +39,7 @@ import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.TestHandle;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.UserLocationManager;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.distance_service.DistanceDataLoader;
+import hr.evolaris.air.foi.evolatis_smarttourism.SuggestionService;
 
 public class        MainActivity
         extends     AppCompatActivity
@@ -105,11 +106,14 @@ public class        MainActivity
                         userLocationInstance.lastUpdateTime);
                 sendMessage(MessageActions.RECEIVE_RECOMMENDATION.text, "");
 
-                LatLng someLocation= new LatLng(46.305016, 16.333277);
-                ArrayList<LatLng> someLocationsList = new ArrayList<LatLng>();
-                someLocationsList.add(someLocation);
+//                LatLng someLocation= new LatLng(46.305016, 16.333277);
+//                ArrayList<LatLng> someLocationsList = new ArrayList<LatLng>();
+//                someLocationsList.add(someLocation);
+//
+//                distanceDataLoader.getDistanceMatrix(someLocationsList, someLocationsList);
 
-                distanceDataLoader.getDistanceMatrix(someLocationsList, null);
+                SuggestionService suggestionService = new SuggestionService();
+                suggestionService.suggestionService();
 
                 if(!popupWindow.isShowing())
                 {
@@ -120,6 +124,17 @@ public class        MainActivity
                 {
                     popupWindow.dismiss();
                 }
+            }
+        });
+
+        Button clicky3 = (Button)findViewById(R.id.clicky3);
+        clicky3.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v)
+            {
+                SuggestionService suggestionService = new SuggestionService();
+                suggestionService.suggestionService();
             }
         });
 

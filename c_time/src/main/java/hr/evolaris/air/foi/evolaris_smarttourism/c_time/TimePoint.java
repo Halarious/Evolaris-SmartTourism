@@ -30,7 +30,7 @@ public class TimePoint
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
         second = calendar.get(Calendar.SECOND);
-        dayName = days[calendar.get(Calendar.DAY_OF_WEEK) + 1];
+        dayName = days[calendar.get(Calendar.DAY_OF_WEEK) - 1];
         monthName = months[month];
 
     }

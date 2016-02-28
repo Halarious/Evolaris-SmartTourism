@@ -8,8 +8,10 @@
     <string name="eventText">Hey, this is sample text. Lets see how far we can drive it until it becomes to long to display on a shitty smartphone which runs shitty Android technology written by incompetent people</string>
     <string name="toastLabel">Map!</string>
     <string name="mapLabel">Map!</string>
+
     <string name="my_button">Click me coward!</string>
     <string name="my_button2">You\'re only gonna kill a man!</string>
+    <string name="my_button3">Algorithm</string>
 
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>

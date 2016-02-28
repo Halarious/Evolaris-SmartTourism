@@ -51,12 +51,33 @@ public class DistanceDataLoader
 
     public void getDistanceMatrix(ArrayList<LatLng> origins, ArrayList<LatLng> destinations)
     {
-        String latitude = String.valueOf(origins.get(0).latitude);
-        String longitude = String.valueOf(origins.get(0).longitude);
+        String originLatitude = String.valueOf(origins.get(0).latitude);
+        String originLongitude = String.valueOf(origins.get(0).longitude);
+
+        String destinationLatitude = String.valueOf(destinations.get(0).latitude);
+        String destinationLongitude = String.valueOf(destinations.get(0).longitude);
+
+        /*
+        for (int i = 0; i < destinations.size(); i++)
+        {
+
+            destinationsLatLng = String.valueOf((destinations.get(i).latitude + "," + destinations.get(i).longitude));
+
+            if (destinationsLatLngIncrement.equals(destinations.size()-1))
+            {
+                destinationsLatLngIncrement = String.valueOf((destinations.get(i++).latitude + "," + destinations.get(i++).longitude));
+
+                finalLatLng = destinationsLatLng + "|" + destinationsLatLngIncrement;
+
+            }else
+            {
+                finalLatLng = destinationsLatLng;
+            }
+        } */
 
         webServiceCall.getDistanceMatrix("json",
-                                        latitude + "," + longitude,
-                                        latitude + "," + longitude,
+                                        originLatitude + "," + originLongitude,
+                                        destinationLatitude + "," + destinationLongitude,
                                         "walking",
                                         APIKey, BaseCallback);
     }

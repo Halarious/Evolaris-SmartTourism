@@ -8,7 +8,7 @@ import retrofit.client.Response;
 
 public class WeatherDataLoader
 {
-    private static String APIKey = "2de143494c0b295cca9337e1e96b00e0";
+    private static String APIKey = "f2d1b6e769154b532d3a5695d06939d6";
     private static String APIUrl = "http://api.openweathermap.org";
 
     private WebServiceCall webServiceCall;
