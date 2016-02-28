@@ -54,7 +54,7 @@ public class LocationDataLoader
 
         webServiceCall.getLocations(LocationContextConstants.SEARCH_TYPE_NEARBY, LocationContextConstants.FORMAT_JSON,
                                     latitude + "," + longitude,
-                                    1000, "restaurant",
+                                    2000, "museum|restaurant|church|mosque|park|zoo",
                                     APIKey, BaseCallback);
     }
 }

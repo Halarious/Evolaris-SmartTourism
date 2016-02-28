@@ -92,8 +92,8 @@ public class        MainActivity
                 ((TextView) findViewById(R.id.MyTextView)).setText(
                         "");
                 sendMessage(MessageActions.START_ACTIVITY.text, "");
-                TestHandle.progressDialog = TestHandle.progressDialog.show(TestHandle.context, "Processing", "Please wait", true);
-                new AsyncCollectInfo().execute();
+                //TestHandle.progressDialog = TestHandle.progressDialog.show(TestHandle.context, "Processing", "Please wait", true);
+                //new AsyncCollectInfo().execute();
             }
         });
 
