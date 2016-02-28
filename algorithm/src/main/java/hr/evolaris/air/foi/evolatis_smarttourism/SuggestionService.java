@@ -2,6 +2,7 @@ package hr.evolaris.air.foi.evolatis_smarttourism;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -162,6 +163,7 @@ public class SuggestionService extends AsyncTask {
         protected void onPostExecute (Object o)
         {
             super.onPostExecute(o);
+            Log.i("", "SEARCHME TITLE: " + NotificationMessage.title + "MESSAGE: "+ NotificationMessage.message);
         }
 
 }

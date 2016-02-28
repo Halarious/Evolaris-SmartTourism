@@ -80,9 +80,9 @@ public class GridPageAdapter
         CardFragment cardFragment = CardFragment.create(title, text, page.iconResource);
         cardFragment.setCardMargins(10, 120, 10, 0);
         cardFragment.setCardGravity(0);
-        cardFragment.setExpansionEnabled(false);
-        cardFragment.setExpansionDirection(0);
-        cardFragment.setExpansionFactor(0);
+        cardFragment.setExpansionEnabled(true);
+        cardFragment.setExpansionDirection(1);
+        cardFragment.setExpansionFactor(10);
 
         return cardFragment;
     }
