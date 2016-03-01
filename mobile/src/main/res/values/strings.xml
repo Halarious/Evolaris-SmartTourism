@@ -9,9 +9,8 @@
     <string name="toastLabel">Map!</string>
     <string name="mapLabel">Map!</string>
 
-    <string name="my_button">Click me coward!</string>
-    <string name="my_button2">You\'re only gonna kill a man!</string>
-    <string name="my_button3">Algorithm</string>
+    <string name="my_button">Send message to wear</string>
+    <string name="my_button2">Algorithm call</string>
 
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>

@@ -83,7 +83,7 @@ public class GridPageAdapter
         cardFragment.setExpansionEnabled(true);
         cardFragment.setExpansionDirection(1);
         cardFragment.setExpansionFactor(10);
-
+        
         return cardFragment;
     }
 

@@ -71,7 +71,7 @@ public class AsyncCollectInfo extends AsyncTask<Location, Integer, String>
             {
                 List<hr.evolaris.air.foi.evolaris_smarttourism.c_location.Location> locationList =
                         LocationIntermediaryResult.locationList.results;
-                if(locationList.size() > 0 && LocationIntermediaryResult.locationList.status == "OK")
+                if(locationList.size() > 0 && LocationIntermediaryResult.locationList.status.equals("OK"))
                 {
 
                 }

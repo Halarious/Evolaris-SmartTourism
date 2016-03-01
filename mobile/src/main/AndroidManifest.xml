@@ -18,7 +18,7 @@
             android:value="@string/google_API_Key" />
 
         <service
-            android:name=".FetchAddressIntentService"
+            android:name=".db.FetchAddressIntentService"
             android:exported="false"/>
 
         <activity android:name=".MainActivity" >

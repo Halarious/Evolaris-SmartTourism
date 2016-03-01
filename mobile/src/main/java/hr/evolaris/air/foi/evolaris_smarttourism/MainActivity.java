@@ -24,17 +24,16 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.wearable.MessageApi;
 import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
-import hr.evolaris.air.foi.evolaris_smarttourism.db.AsyncCollectInfo;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.Constants;
+import hr.evolaris.air.foi.evolaris_smarttourism.db.FetchAddressIntentService;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.MessageActions;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.NotificationMessage;
 import hr.evolaris.air.foi.evolaris_smarttourism.db.TestHandle;
@@ -68,8 +67,6 @@ public class        MainActivity
         setContentView(R.layout.activity_main);
 
         initializeGoogleApiClient();
-
-        distanceDataLoader = new DistanceDataLoader();
 
         userLocationInstance = UserLocationManager.getInstance();
         addressResultReceiver = new AddressResultReceiver(new Handler());
@@ -128,16 +125,6 @@ public class        MainActivity
                 {
                     popupWindow.dismiss();
                 }
-            }
-        });
-
-        Button clicky3 = (Button)findViewById(R.id.clicky3);
-        clicky3.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v)
-            {
-                new SuggestionService().execute();
             }
         });
 

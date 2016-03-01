@@ -1,4 +1,4 @@
-package hr.evolaris.air.foi.evolaris_smarttourism;
+package hr.evolaris.air.foi.evolaris_smarttourism.db;
 
 public final class Constants
 {

@@ -1,4 +1,4 @@
-package hr.evolaris.air.foi.evolaris_smarttourism;
+package hr.evolaris.air.foi.evolaris_smarttourism.db;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -60,7 +60,7 @@ public class FetchAddressIntentService extends IntentService
         {
             if(errorMessage.isEmpty())
             {
-                errorMessage = getString(R.string.address_not_found);
+                errorMessage = "Address not found";
                 Log.e("", errorMessage);
             }
             deliverResultToReceiver(intent, Constants.FAILURE_RESULT, errorMessage);
@@ -73,7 +73,7 @@ public class FetchAddressIntentService extends IntentService
             {
                 addressFragments.add(address.getAddressLine(i));
             }
-            Log.i("", getString(R.string.address_found));
+            Log.i("", "Address found");
             deliverResultToReceiver(intent,
                                     Constants.SUCCESS_RESULT,
                                     TextUtils.join(System.getProperty("line.separator"),
